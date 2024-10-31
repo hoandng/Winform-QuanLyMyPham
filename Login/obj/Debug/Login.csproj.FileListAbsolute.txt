@@ -1,0 +1,14 @@
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.csproj.AssemblyReference.cache
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.fLogin.resources
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.Properties.Resources.resources
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.csproj.GenerateResource.cache
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.csproj.CoreCompileInputs.cache
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Login.exe.config
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Login.exe
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Login.pdb
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.exe
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.pdb
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Main.exe
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Main.pdb
+D:\VisualPrograming\BTL\QLBH\Login\bin\Debug\Main.exe.config
+D:\VisualPrograming\BTL\QLBH\Login\obj\Debug\Login.csproj.Up2Date
