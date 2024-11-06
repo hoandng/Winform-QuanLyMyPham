@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Main.NhanVien
 {
@@ -14,16 +16,26 @@ namespace Main.NhanVien
         
         private void Load_NhanVien()
         {
-            DataTable dtNhanVien = _database.DocBang("Select * from [NhanVien]");
+            string querry = "Select * from [NhanVien]";
+            DataTable dtNhanVien = _database.ExecuteQuery(querry);
             dtg_NhanVien.DataSource = dtNhanVien;
             dtNhanVien.Dispose();
         }
 
+        private void fill_CongViec()
+        {
+            string query = "SELECT MaCV, TenCV FROM [CongViec]";
+            DataTable dataTable = _database.ExecuteQuery(query);
+
+            cb_CongViec.DataSource = dataTable;
+            cb_CongViec.DisplayMember = "TenCV"; // Tên cột hiển thị
+            cb_CongViec.ValueMember = "MaCV";     // Tên cột giá trị
+        }
         private void resetTextBox()
         {
             txt_MaNV.Text = "";
             txt_TenNV.Text = "";
-            txt_MaCV.Text = "";
+            cb_CongViec.Text = "";
             txt_SDT.Text = "";
             cb_GioiTinh.Text = "";
             dtp_NgaySinh.Value = DateTime.Now;
@@ -33,7 +45,7 @@ namespace Main.NhanVien
         {
             txt_MaNV.Enabled = enable;
             txt_TenNV.Enabled = enable;
-            txt_MaCV.Enabled = enable;
+            cb_CongViec.Enabled = enable;
             txt_SDT.Enabled = enable;
             dtp_NgaySinh.Enabled = enable;
             txt_DiaChi.Enabled = enable;
@@ -47,6 +59,11 @@ namespace Main.NhanVien
             Load_NhanVien();
             resetTextBox();
             enableControl(false);
+            fill_CongViec();
+            lb_NV_TrangThai.Text = "";
+            btn_NV_Them.Enabled = true;
+            btn_NV_Sua.Enabled = false;
+            btn_NV_Xoa.Enabled = false;
         }
 
         private void dtg_NhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -64,11 +81,11 @@ namespace Main.NhanVien
                 dtp_NgaySinh.Text = row.Cells["NgaySinh"].Value.ToString();
                 txt_DiaChi.Text = row.Cells["DiaChi"].Value.ToString();
                 txt_SDT.Text = row.Cells["DienThoai"].Value.ToString();
-                txt_MaCV.Text = row.Cells["MaCV"].Value.ToString();
+                cb_CongViec.SelectedValue = row.Cells["MaCV"].Value.ToString();
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btn_NV_Them_Click(object sender, EventArgs e)
@@ -83,9 +100,8 @@ namespace Main.NhanVien
 
         private void btn_NV_Sua_Click(object sender, EventArgs e)
         {
-            resetTextBox();
             enableControl(true);
-
+            txt_MaNV.Enabled = false;
             btn_NV_Them.Enabled = false;
             btn_NV_Xoa.Enabled=false;
             lb_NV_TrangThai.Text = "*Bạn đang ở chế độ Sửa!";
@@ -93,9 +109,7 @@ namespace Main.NhanVien
 
         private void btn_NV_Xoa_Click(object sender, EventArgs e)
         {
-            resetTextBox();
-            enableControl(true);
-
+            enableControl(false);
             btn_NV_Them.Enabled = false;
             btn_NV_Sua.Enabled = false;
             lb_NV_TrangThai.Text = "*Bạn đang ở chế độ Xoá!";
@@ -109,8 +123,8 @@ namespace Main.NhanVien
             string ten = txt_TenNV.Text;
             string diachi = txt_DiaChi.Text;
             string sdt = txt_SDT.Text;
-            string macv = txt_MaCV.Text;
-            string ngaysinh = dtp_NgaySinh.Value.ToString("MM/dd/yyyy");
+            string macv = cb_CongViec.SelectedValue.ToString();
+            string ngaysinh = dtp_NgaySinh.Text;
             string gioitinh = cb_GioiTinh.Text;
 
             //Kiểm tra mã và tên nhân viên có trống không
@@ -182,33 +196,61 @@ namespace Main.NhanVien
             if (btn_NV_Them.Enabled == true)
             {
 
-                sql = $"Select Count(*) From [NhanVien] Where MaNV ='{ma}';";
-                DataTable dt = _database.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = $"Select Count(*) From [NhanVien] Where MaNV = @ma;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                int count = Convert.ToInt32(_database.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại Nhân viên với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [NhanVien] (MaNV, TenNV, GioiTinh, NgaySinh, DienThoai, DiaChi, MaCV)";
-                sql += $"VALUES('{ma}', N'{ten}', N'{gioitinh}', '{dob}', '{sdt}', N'{diachi}', '{macv}');";
+                sql += "VALUES(@ma, @ten, @gioitinh, @ngaysinh, @dienthoai, @diachi, @macv);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                    {"@diachi", diachi},
+                    {"@dienthoai",sdt },
+                    {"@ngaysinh", ngaysinh },
+                    {"@gioitinh", gioitinh},
+                    {"@macv", macv }
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
 
-
-            //Nếu nút Sửa enable TNSXì thực hiện cập nhật dữ liệu
+            //Nếu nút Sửa enable thì thực hiện cập nhật dữ liệu
             if (btn_NV_Sua.Enabled == true)
             {
                 sql = "Update [NhanVien] SET ";
-                sql += $"TenNV = N'{ten}', GioiTinh = N'{gioitinh}', NgaySinh = '{dob}', DienThoai = '{sdt}', DiaChi = N'{diachi}', MaCV = '{macv}'";
-                sql += $"WHERE MaNV = '{ma}'";
+                sql += "TenNV = @ten, GioiTinh = @gioitinh, NgaySinh = @ngaysinh, DienThoai = @dienthoai, DiaChi = @diachi, MaCV = @macv ";
+                sql += "WHERE MaNV = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                    {"@diachi", diachi},
+                    {"@dienthoai",sdt },
+                    {"@ngaysinh", ngaysinh },
+                    {"@gioitinh", gioitinh},
+                    {"@macv", macv }
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_NV_Xoa.Enabled == true)
             {
-                sql = $"Delete From [NhanVien] Where MaNV = '{ma}'";
+                sql = $"Delete From [NhanVien] Where MaNV = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
-
-            _database.CapNhatDuLieu(sql);
 
             Load_NhanVien();
 

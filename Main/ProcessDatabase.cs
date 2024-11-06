@@ -6,61 +6,129 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Common;
 
 namespace Main
 {
     internal class ProcessDatabase
     {
-        string strConnect = @"Server=HOANDANG\THANHDANGHOAN;Database=MYPHAM;Trusted_Connection=True;";
+        private SqlConnection _connection;
 
-        SqlConnection sqlConnect = null;
-        //Hàm mở kết nối CSDL
-        private void KetNoiCSDL()
+        // Constructor với chuỗi kết nối (connection string)
+        public ProcessDatabase()
         {
-            sqlConnect = new SqlConnection(strConnect);
-            if (sqlConnect.State != ConnectionState.Open)
-                sqlConnect.Open();
+            _connection = new SqlConnection(@"Server=HOANDANG\THANHDANGHOAN;Database=MYPHAM;Trusted_Connection=True;");
         }
-        //Hàm đóng kết nối CSDL
-        private void DongKetNoiCSDL()
+        // Mở kết nối đến database
+        public void OpenConnection()
         {
-            if (sqlConnect.State != ConnectionState.Closed)
-                sqlConnect.Close();
-            sqlConnect.Dispose();
+            if (_connection.State == ConnectionState.Closed)
+            {
+                _connection.Open();
+            }
         }
-        //Hàm thực thi câu lệnh dạng Select trả về một DataTable
-        public DataTable DocBang(string sql)
+
+        // Đóng kết nối
+        public void CloseConnection()
         {
-            DataTable dtBang = new DataTable();
+            if (_connection.State == ConnectionState.Open)
+            {
+                _connection.Close();
+            }
+        }
+
+        // Hàm thực thi câu lệnh SELECT và trả về DataTable
+        public DataTable ExecuteQuery(string query, Dictionary<string, object> parameters = null)
+        {
+            DataTable dataTable = new DataTable();
             try
             {
-                KetNoiCSDL();
-                SqlDataAdapter sqldataAdapte = new SqlDataAdapter(sql, sqlConnect);
-                sqldataAdapte.Fill(dtBang);
-                DongKetNoiCSDL();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(query, _connection);
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        command.Parameters.AddWithValue(param.Key, param.Value);
+                    }
+                }
+
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi kết nối cơ sở dữ liệu: " + ex.Message);
+                // Xử lý lỗi
+                MessageBox.Show("Error: " + ex.Message);
             }
-            return dtBang;
+            finally
+            {
+                CloseConnection();
+            }
+            return dataTable;
         }
-        //Hàm thực lệnh insert hoặc update hoặc delete
-        public void CapNhatDuLieu(string sql)
+
+        // Hàm thực thi INSERT, UPDATE, DELETE và trả về số dòng ảnh hưởng
+        public int ExecuteNonQuery(string query, Dictionary<string, object> parameters = null)
         {
+            int rowsAffected = 0;
             try
             {
-                KetNoiCSDL();
-                SqlCommand sqlcommand = new SqlCommand();
-                sqlcommand.Connection = sqlConnect;
-                sqlcommand.CommandText = sql;
-                sqlcommand.ExecuteNonQuery();
-                DongKetNoiCSDL();
+                OpenConnection();
+                SqlCommand command = new SqlCommand(query, _connection);
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        command.Parameters.AddWithValue(param.Key, param.Value);
+                    }
+                }
+
+                rowsAffected = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Xử lý lỗi
+                MessageBox.Show("Error: " + ex.Message);
             }
+            finally
+            {
+                CloseConnection();
+            }
+            return rowsAffected;
+        }
+
+        // Hàm thực thi scalar (dùng cho COUNT, SUM, ...)
+        public object ExecuteScalar(string query, Dictionary<string, object> parameters = null)
+        {
+            object result = null;
+            try
+            {
+                OpenConnection();
+                SqlCommand command = new SqlCommand(query, _connection);
+
+                if (parameters != null)
+                {
+                    foreach (var param in parameters)
+                    {
+                        command.Parameters.AddWithValue(param.Key, param.Value);
+                    }
+                }
+
+                result = command.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return result;
         }
     }
 }

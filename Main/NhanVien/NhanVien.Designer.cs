@@ -47,7 +47,6 @@
             this.txt_SDT = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.txt_MaCV = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.txt_TenNV = new System.Windows.Forms.TextBox();
@@ -71,6 +70,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errNhanVien = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cb_CongViec = new System.Windows.Forms.ComboBox();
             this.tp_CongViec.SuspendLayout();
             this.tp_NhanVien.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -93,6 +93,7 @@
             // 
             // tp_NhanVien
             // 
+            this.tp_NhanVien.Controls.Add(this.cb_CongViec);
             this.tp_NhanVien.Controls.Add(this.lb_NV_TrangThai);
             this.tp_NhanVien.Controls.Add(this.btn_NV_Huy);
             this.tp_NhanVien.Controls.Add(this.btn_NV_Luu);
@@ -106,7 +107,6 @@
             this.tp_NhanVien.Controls.Add(this.txt_SDT);
             this.tp_NhanVien.Controls.Add(this.label11);
             this.tp_NhanVien.Controls.Add(this.label12);
-            this.tp_NhanVien.Controls.Add(this.txt_MaCV);
             this.tp_NhanVien.Controls.Add(this.label13);
             this.tp_NhanVien.Controls.Add(this.label14);
             this.tp_NhanVien.Controls.Add(this.txt_TenNV);
@@ -281,14 +281,6 @@
             this.label12.Size = new System.Drawing.Size(99, 25);
             this.label12.TabIndex = 13;
             this.label12.Text = "Ngày sinh";
-            // 
-            // txt_MaCV
-            // 
-            this.txt_MaCV.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_MaCV.Location = new System.Drawing.Point(376, 241);
-            this.txt_MaCV.Name = "txt_MaCV";
-            this.txt_MaCV.Size = new System.Drawing.Size(229, 34);
-            this.txt_MaCV.TabIndex = 19;
             // 
             // label13
             // 
@@ -517,6 +509,14 @@
             // 
             this.errNhanVien.ContainerControl = this;
             // 
+            // cb_CongViec
+            // 
+            this.cb_CongViec.FormattingEnabled = true;
+            this.cb_CongViec.Location = new System.Drawing.Point(376, 245);
+            this.cb_CongViec.Name = "cb_CongViec";
+            this.cb_CongViec.Size = new System.Drawing.Size(227, 24);
+            this.cb_CongViec.TabIndex = 60;
+            // 
             // NhanVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -558,7 +558,6 @@
         private System.Windows.Forms.TextBox txt_SDT;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txt_MaCV;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txt_TenNV;
@@ -584,5 +583,6 @@
         private System.Windows.Forms.ErrorProvider errNhanVien;
         private System.Windows.Forms.TextBox txt_MucLuong;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cb_CongViec;
     }
 }

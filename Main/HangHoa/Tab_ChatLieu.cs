@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,8 @@ namespace Main.HangHoa
     {
         private void Load_ChatLieu()
         {
-            DataTable dt = _data.DocBang("Select * from [ChatLieu]");
+            string querry = "Select * from [ChatLieu]";
+            DataTable dt = _data.ExecuteQuery(querry);
             dtg_ChatLieu.DataSource = dt;
             dtg_ChatLieu.Columns[0].HeaderText = "Mã Chất liệu";
             dtg_ChatLieu.Columns[1].HeaderText = "Tên Chất liệu";
@@ -53,8 +55,8 @@ namespace Main.HangHoa
                 btn_CL_Xoa.Enabled = true;
                 Enable_ChatLieu(false);
                 DataGridViewRow row = dtg_ChatLieu.Rows[e.RowIndex];
-                txt_MCL.Text = row.Cells["MaMau"].Value.ToString();
-                txt_TCL.Text = row.Cells["TenMau"].Value.ToString();
+                txt_MCL.Text = row.Cells["MaChatLieu"].Value.ToString();
+                txt_TCL.Text = row.Cells["TenChatLieu"].Value.ToString();
             }
             catch (Exception ex)
             {
@@ -94,6 +96,52 @@ namespace Main.HangHoa
             }
         }
 
+        private void Them_CL()
+        {
+            string sql = $"Select Count(*) From [ChatLieu] Where MaChatLieu = @ma;";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ma", txt_MCL},
+            };
+            int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+            if (count > 0)
+            {
+                MessageBox.Show($"Đã tồn tại chất liệu với mã {txt_TCL}", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            sql = "INSERT INTO [ChatLieu] (MaChatLieu, TenChatLieu)";
+            sql += "VALUES(@ma, @ten);";
+            parameters = new Dictionary<string, object>
+            {
+                {"@ma", txt_MCL},
+                {"@ten", txt_TCL},
+            };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
+        private void Sua_CL()
+        {
+            string sql = "Update [ChatLieu] SET ";
+            sql += $"TenChatLieu = @ten ";
+            sql += $"WHERE MaChatLieu = @ma";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ma", txt_MCL},
+                {"@ten", txt_TCL},
+            };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
+        private void Xoa_CL()
+        {
+            string sql = $"Delete From [ChatLieu] Where MaChatLieu = @ma";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ma", txt_MCL},
+            };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
         private void btn_CL_Luu_Click(object sender, EventArgs e)
         {
             string sql = "";
@@ -124,34 +172,21 @@ namespace Main.HangHoa
 
             if (btn_CL_Them.Enabled == true)
             {
-
-                sql = $"Select Count(*) From [ChatLieu] Where MaChatLieu ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
-                {
-                    MessageBox.Show($"Đã tồn tại chất liệu với mã {ma}", "Thông báo", MessageBoxButtons.OK);
-                    return;
-                }
-                sql = "INSERT INTO [ChatLieu] (MaChatLieu, TenChatLieu)";
-                sql += $"VALUES('{ma}', N'{ten}');";
+                Them_CL();
             }
 
-
-            //Nếu nút Sửa enable TNSXì thực hiện cập nhật dữ liệu
+                //Nếu nút Sửa enable TNSXì thực hiện cập nhật dữ liệu
             if (btn_CL_Sua.Enabled == true)
             {
-                sql = "Update [ChatLieu] SET ";
-                sql += $"TenChatLieu = N'{ten}'";
-                sql += $"WHERE MaChatLieu = '{ma}'";
+                Sua_CL();
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_CL_Xoa.Enabled == true)
             {
-                sql = $"Delete From [MauSac] Where MaChatLieu = '{ma}'";
+                Xoa_CL();
             }
 
-            _data.CapNhatDuLieu(sql);
 
             Load_ChatLieu();
 

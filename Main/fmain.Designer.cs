@@ -54,7 +54,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 750);
+            this.panel1.Size = new System.Drawing.Size(212, 853);
             this.panel1.TabIndex = 0;
             // 
             // pannel_menu_btn
@@ -77,7 +77,7 @@
             this.brn_NhaCC.FlatAppearance.BorderSize = 0;
             this.brn_NhaCC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.brn_NhaCC.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.brn_NhaCC.Location = new System.Drawing.Point(0, 350);
+            this.brn_NhaCC.Location = new System.Drawing.Point(0, 353);
             this.brn_NhaCC.Name = "brn_NhaCC";
             this.brn_NhaCC.Size = new System.Drawing.Size(212, 70);
             this.brn_NhaCC.TabIndex = 3;
@@ -93,7 +93,7 @@
             this.btn_DonNhap.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_DonNhap.Location = new System.Drawing.Point(0, 280);
             this.btn_DonNhap.Name = "btn_DonNhap";
-            this.btn_DonNhap.Size = new System.Drawing.Size(212, 70);
+            this.btn_DonNhap.Size = new System.Drawing.Size(212, 73);
             this.btn_DonNhap.TabIndex = 3;
             this.btn_DonNhap.Text = "Đơn nhập";
             this.btn_DonNhap.UseVisualStyleBackColor = true;
@@ -112,6 +112,7 @@
             this.btn_ThongKe.TabIndex = 2;
             this.btn_ThongKe.Text = "Thống kê";
             this.btn_ThongKe.UseVisualStyleBackColor = false;
+            this.btn_ThongKe.Click += new System.EventHandler(this.btn_ThongKe_Click);
             // 
             // btn_DonBan
             // 
@@ -194,10 +195,11 @@
             // 
             // pannel_content
             // 
-            this.pannel_content.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pannel_content.Location = new System.Drawing.Point(211, 0);
+            this.pannel_content.BackColor = System.Drawing.SystemColors.Control;
+            this.pannel_content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pannel_content.Location = new System.Drawing.Point(212, 0);
             this.pannel_content.Name = "pannel_content";
-            this.pannel_content.Size = new System.Drawing.Size(1290, 750);
+            this.pannel_content.Size = new System.Drawing.Size(1290, 853);
             this.pannel_content.TabIndex = 3;
             // 
             // fmain
@@ -205,10 +207,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1501, 750);
+            this.ClientSize = new System.Drawing.Size(1502, 853);
             this.Controls.Add(this.pannel_content);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.Name = "fmain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý bán hàng";

@@ -13,6 +13,8 @@ namespace Main.HangHoa
 {
     partial class HangHoa : Form
     {
+        ProcessDatabase _data = new ProcessDatabase();
+
         public HangHoa()
         {
             InitializeComponent();
@@ -26,5 +28,6 @@ namespace Main.HangHoa
 
         }
 
+        
     }
 }

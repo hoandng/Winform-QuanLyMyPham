@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace Main.HangHoa
@@ -12,7 +13,8 @@ namespace Main.HangHoa
     {
         private void Load_Mua()
         {
-            DataTable dt = _data.DocBang("Select * from [Mua]");
+            string querry = "Select * from [Mua]";
+            DataTable dt = _data.ExecuteQuery(querry);
             dtg_Mua.DataSource = dt;
             dtg_Mua.Columns[0].HeaderText = "Mã Mùa";
             dtg_Mua.Columns[1].HeaderText = "Tên Mùa";
@@ -124,15 +126,25 @@ namespace Main.HangHoa
 
             if (btn_Mua_Them.Enabled == true)
             {
-                sql = $"Select Count(*) From [Mua] Where MaMua ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = "Select Count(*) From [Mua] Where MaMua = @ma;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại mùa với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [Mua] (MaMua, TenMua)";
-                sql += $"VALUES('{ma}', N'{ten}');";
+                sql += $"VALUES(@ma, @ten);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -140,17 +152,27 @@ namespace Main.HangHoa
             if (btn_Mua_Sua.Enabled == true)
             {
                 sql = "Update [Mua] SET ";
-                sql += $"TenMua = N'{ten}'";
-                sql += $"WHERE MaMua = '{ma}'";
+                sql += "TenMua =  @ten ";
+                sql += "WHERE MaMua = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_Mua_Xoa.Enabled == true)
             {
-                sql = $"Delete From [Mua] Where MaMua = '{ma}'";
+                sql = "Delete From [Mua] Where MaMua = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_Mua();
 

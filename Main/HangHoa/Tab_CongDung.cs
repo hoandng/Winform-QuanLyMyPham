@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +14,8 @@ namespace Main.HangHoa
     {
         private void Load_CongDung()
         {
-            DataTable dt = _data.DocBang("Select * from [CongDung]");
+            string querry = "Select * from [CongDung]";
+            DataTable dt = _data.ExecuteQuery(querry);
             dtg_CongDung.DataSource = dt;
             dtg_CongDung.Columns[0].HeaderText = "Mã Công dụng";
             dtg_CongDung.Columns[1].HeaderText = "Tên Công dụng";
@@ -94,6 +97,52 @@ namespace Main.HangHoa
             }
         }
 
+        private void Them_CD()
+        {
+            string sql = $"Select Count(*) From [CongDung] Where MaCongDung = @ma;";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@ma", txt_MCD},
+            };
+            int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+            if (count > 0)
+            {
+                MessageBox.Show($"Đã tồn tại công dụng với mã {txt_MCD}", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+            sql = "INSERT INTO [CongDung] (MaCongDung, TenCongDUng)";
+            sql += $"VALUES(@ma, @ten);";
+            parameters = new Dictionary<string, object>
+            {
+            {"@ma", txt_MCD},
+                {"@ten", txt_TCD},
+            };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
+        private void Sua_CD()
+        {
+            string sql = "Update [CongDung] SET ";
+            sql += $"TenCongDung = @ten ";
+            sql += $"WHERE MaCongDung = @ma";
+            var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", txt_MCD},
+                    {"@ten", txt_TCD},
+                };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
+        private void Xoa_CD()
+        {
+            string sql = $"Delete From [CongDung] Where MaCongDung = @ma";
+            var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", txt_MCD},
+                };
+            _data.ExecuteNonQuery(sql, parameters);
+        }
+
         private void btn_CD_Luu_Click(object sender, EventArgs e)
         {
             string sql = "";
@@ -124,34 +173,21 @@ namespace Main.HangHoa
 
             if (btn_CD_Them.Enabled == true)
             {
-
-                sql = $"Select Count(*) From [CongDung] Where MaCongDung ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
-                {
-                    MessageBox.Show($"Đã tồn tại công dụng với mã {ma}", "Thông báo", MessageBoxButtons.OK);
-                    return;
-                }
-                sql = "INSERT INTO [CongDUng] (MaCongDung, TenCongDUng)";
-                sql += $"VALUES('{ma}', N'{ten}');";
+                Them_CD();
             }
 
 
             //Nếu nút Sửa enable TNSXì thực hiện cập nhật dữ liệu
             if (btn_CD_Sua.Enabled == true)
             {
-                sql = "Update [CongDung] SET ";
-                sql += $"TenCongDung = N'{ten}'";
-                sql += $"WHERE MaCongDung = '{ma}'";
+                Sua_CD();
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_CD_Xoa.Enabled == true)
             {
-                sql = $"Delete From [CongDung] Where MaCongDung = '{ma}'";
+                Xoa_CD();
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_CongDung();
 

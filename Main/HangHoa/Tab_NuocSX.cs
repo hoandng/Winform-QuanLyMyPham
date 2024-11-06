@@ -30,7 +30,8 @@ namespace Main.HangHoa
 
         private void Load_NuocSX()
         {
-            DataTable dt = _data.DocBang("Select * from [NuocSX]");
+            string querry = "Select * from [NuocSX]";
+            DataTable dt = _data.ExecuteQuery(querry);
             dtg_NuocSX.DataSource = dt;
             dtg_NuocSX.Columns[0].HeaderText = "Mã Nước";
             dtg_NuocSX.Columns[1].HeaderText = "Tên Nước";
@@ -132,15 +133,25 @@ namespace Main.HangHoa
 
             if (btn_NSX_Them.Enabled == true)
             {
-                sql = $"Select Count(*) From [NuocSX] Where MaNuocSX ='{mansx}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = "Select Count(*) From [NuocSX] Where MaNuocSX = @mansx;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mansx", mansx},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại nước sản xuất với mã {mansx}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [NuocSX] (MaNuocSX, TenNuocSX)";
-                sql += $"VALUES('{mansx}', N'{tennsx}');";
+                sql += $"VALUES(@mansx, @tennsx);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@mansx", mansx},
+                    {"@tennxs", tennsx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -148,17 +159,26 @@ namespace Main.HangHoa
             if (btn_NSX_Sua.Enabled == true)
             {
                 sql = "Update [NuocSX] SET ";
-                sql += $"TenNuocSX = N'{tennsx}'";
-                sql += $"WHERE MaNuocSX = '{mansx}'";
+                sql += "TenNuocSX = @tennsx ";
+                sql += "WHERE MaNuocSX = @mansx";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mansx", mansx},
+                    {"@tennsx", tennsx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_NSX_Xoa.Enabled == true)
             {
-                sql = $"Delete From [NuocSX] Where MaNuocSX = '{mansx}'";
+                sql = $"Delete From [NuocSX] Where MaNuocSX = @mansx";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mansx", mansx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_NuocSX();
 

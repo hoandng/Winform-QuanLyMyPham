@@ -12,7 +12,8 @@ namespace Main.HangHoa
     {
         private void Load_Loai()
         {
-            DataTable dt = _data.DocBang("Select * from [Loai]");
+            string querry = "Select * from [Loai]";
+            DataTable dt = _data.ExecuteQuery(querry);
             dtg_Loai.DataSource = dt;
             dtg_Loai.Columns[0].HeaderText = "Mã Loại";
             dtg_Loai.Columns[1].HeaderText = "Tên Loại";
@@ -130,32 +131,51 @@ namespace Main.HangHoa
 
             if (btn_Loai_Them.Enabled == true)
             {
-                sql = $"Select Count(*) From [Loai] Where MaLoai ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = "Select Count(*) From [Loai] Where MaLoai = @ma;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại loại với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [Loai] (MaLoai, TenLoai)";
-                sql += $"VALUES('{ma}', N'{ten}');";
+                sql += "VALUES(@ma, @ten);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Sửa enable TNSXì thực hiện cập nhật dữ liệu
             if (btn_Loai_Sua.Enabled == true)
             {
                 sql = "Update [Loai] SET ";
-                sql += $"TenLoai = N'{ten}'";
-                sql += $"WHERE MaLoai = '{ma}'";
+                sql += "TenLoai = @ten ";
+                sql += "WHERE MaLoai = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_Loai_Xoa.Enabled == true)
             {
-                sql = $"Delete From [Loai] Where MaLoai = '{ma}'";
+                sql = "Delete From [Loai] Where MaLoai = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_Loai();
 

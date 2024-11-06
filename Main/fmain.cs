@@ -102,5 +102,10 @@ namespace Main
             ActivateButton(sender);
             openChildForm(new fNhaCC());
         }
+
+        private void btn_ThongKe_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

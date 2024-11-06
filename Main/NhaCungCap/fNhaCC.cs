@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,11 +24,14 @@ namespace Main.NhaCungCap
             Load_NCC();
             resetTextBox();
             enableControls(false);
+            btn_Sua.Enabled = false;
+            btn_Xoa.Enabled = false;
         }
 
         private void Load_NCC()
         {
-            DataTable dataTable = _data.DocBang("Select * From [NhaCungCap]");
+            string querry = "Select * from [NhaCungCap]";
+            DataTable dataTable = _data.ExecuteQuery(querry);
             dgv_NhaCC.DataSource = dataTable;
             
             dgv_NhaCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -145,15 +149,27 @@ namespace Main.NhaCungCap
             if (btn_Them.Enabled == true)
             {
 
-                sql = $"Select Count(*) From [NhaCungCap] Where MaNCC ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = $"Select Count(*) From [NhaCungCap] Where MaNCC = @ma;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại Khách hàng với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [NhaCungCap] (MaNCC, TenNCC, DiaChi, DienThoai)";
-                sql += $"VALUES('{ma}', N'{ten}', N'{diachi}', '{sdt}');";
+                sql += $"VALUES(@ma, @ten, @diachi, @dienthoai);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                    {"@diachi", diachi},
+                    {"@dienthoai",sdt }
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -161,17 +177,28 @@ namespace Main.NhaCungCap
             if (btn_Sua.Enabled == true)
             {
                 sql = "Update [NhaCungCap] SET ";
-                sql += $"TenNCC = N'{ten}', DiaChi = N'{diachi}', DienThoai = '{sdt}'";
-                sql += $"WHERE MaNCC = '{ma}'";
+                sql += $"TenNCC = @ten, DiaChi = @diachi, DienThoai = @dienthoai ";
+                sql += $"WHERE MaNCC = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                    {"@diachi", diachi},
+                    {"@dienthoai",sdt }
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_Xoa.Enabled == true)
             {
-                sql = $"Delete From [NhaCungCap] Where MaNCC = '{ma}'";
+                sql = $"Delete From [NhaCungCap] Where MaNCC = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_NCC();
 

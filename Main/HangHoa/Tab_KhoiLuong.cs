@@ -12,7 +12,8 @@ namespace Main.HangHoa
     {
         private void Load_KhoiLuong()
         {
-            DataTable dt = _data.DocBang("Select * from [KhoiLuong]");
+            string querry = "Select * from [KhoiLuong]";
+            DataTable dt = _data.ExecuteQuery("Select * from [KhoiLuong]");
             dtg_KhoiLuong.DataSource = dt;
             dtg_KhoiLuong.Columns[0].HeaderText = "Mã Khối lượng";
             dtg_KhoiLuong.Columns[1].HeaderText = "Tên Khối lượng";
@@ -126,15 +127,25 @@ namespace Main.HangHoa
             if (btn_KL_Them.Enabled == true)
             {
 
-                sql = $"Select Count(*) From [KhoiLuong] Where MaKhoiLuong ='{ma}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = $"Select Count(*) From [KhoiLuong] Where MaKhoiLuong = @ma;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại khối lượng với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [KhoiLuong] (MaKhoiLuong, TenKhoiLuong)";
-                sql += $"VALUES('{ma}', N'{ten}');";
+                sql += "VALUES(@ma, @ten);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -142,17 +153,27 @@ namespace Main.HangHoa
             if (btn_KL_Sua.Enabled == true)
             {
                 sql = "Update [KhoiLuong] SET ";
-                sql += $"TenKhoiLuong = N'{ten}'";
-                sql += $"WHERE MaKhoiLuong = '{ma}'";
+                sql += "TenKhoiLuong = @ten ";
+                sql += "WHERE MaKhoiLuong = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                    {"@ten", ten},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_KL_Xoa.Enabled == true)
             {
-                sql = $"Delete From [KhoiLuong] Where MaKhoiLuong = '{ma}'";
+                sql = "Delete From [KhoiLuong] Where MaKhoiLuong = @ma";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@ma", ma},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
-            _data.CapNhatDuLieu(sql);
 
             Load_KhoiLuong();
 

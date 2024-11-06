@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,28 +12,14 @@ namespace Main.HangHoa
 {
     partial class HangHoa : Form
     {
-        ProcessDatabase _data = new ProcessDatabase();
         private void Load_HangHoa()
         {
-            DataTable dtHangHoa = _data.DocBang("Select * from [HangHoa]");
+            string querry = "Select * from [HangHoa]";
+            DataTable dtHangHoa = _data.ExecuteQuery(querry);
             dtg_HangHoa.DataSource = dtHangHoa;
 
             dtg_HangHoa.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dtg_HangHoa.Columns[0].HeaderText = "Mã Hàng";
-            dtg_HangHoa.Columns[1].HeaderText = "Tên Hàng";
-            dtg_HangHoa.Columns[2].HeaderText = "Mã Loại";
-            dtg_HangHoa.Columns[3].HeaderText = "Mã Khối Lượng";
-            dtg_HangHoa.Columns[4].HeaderText = "Mã Hãng SX";
-            dtg_HangHoa.Columns[5].HeaderText = "Mã Chất Liệu";
-            dtg_HangHoa.Columns[6].HeaderText = "Mã Công dụng";
-            dtg_HangHoa.Columns[7].HeaderText = "Mã Màu";
-            dtg_HangHoa.Columns[8].HeaderText = "Mã Nước SX";
-            dtg_HangHoa.Columns[9].HeaderText = "Mã Mùa";
-            dtg_HangHoa.Columns[10].HeaderText = "Số lượng";
-            dtg_HangHoa.Columns[11].HeaderText = "Đơn giá nhập";
-            dtg_HangHoa.Columns[12].HeaderText = "Đơn giá bán";
-            dtg_HangHoa.Columns[13].HeaderText = "Ảnh";
-            dtg_HangHoa.Columns[14].HeaderText = "Ghi chú";
+            
 
             dtg_HangHoa.VirtualMode = true;
             dtg_HangHoa.BackgroundColor = Color.LightBlue;
@@ -40,6 +27,16 @@ namespace Main.HangHoa
         }
         private void tp_HangHoa_Enter(object sender, EventArgs e)
         {
+            // Đổ dữ liệu vào Combobox
+            fill_ChatLieu();
+            fill_CongDung();
+            fill_KhoiLuong();
+            fill_Loai();
+            fill_Mau();
+            fill_Mua();
+            fill_NuocSX();
+            fill_HangSX();
+
             Load_HangHoa();
             Enable_HangHoa(false);
             ResetValueTextBox_HangHoa();
@@ -52,7 +49,78 @@ namespace Main.HangHoa
 
             //ClearDataGrid(dtg_HangHoa);
         }
+        private void fill_ChatLieu()
+        {
+            string query = "SELECT MaChatLieu, TenChatLieu FROM [ChatLieu]";
+            DataTable dataTable = _data.ExecuteQuery(query);
 
+            cb_CL.DataSource = dataTable;
+            cb_CL.DisplayMember = "TenChatLieu"; // Tên cột hiển thị
+            cb_CL.ValueMember = "MaChatLieu";     // Tên cột giá trị
+        }
+        private void fill_CongDung()
+        {
+            string query = "SELECT MaCongDung, TenCongDung FROM [CongDung]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_CD.DataSource = dataTable;
+            cb_CD.DisplayMember = "TenCongDung"; // Tên cột hiển thị
+            cb_CD.ValueMember = "MaCongDung";     // Tên cột giá trị
+        }
+        private void fill_KhoiLuong()
+        {
+            string query = "SELECT MaKhoiLuong, TenKhoiLuong FROM [KhoiLuong]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_KL.DataSource = dataTable;
+            cb_KL.DisplayMember = "TenKhoiLuong"; // Tên cột hiển thị
+            cb_KL.ValueMember = "MaKhoiLuong";     // Tên cột giá trị
+        }
+        private void fill_Loai ()
+        {
+            string query = "SELECT MaLoai, TenLoai FROM [Loai]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_Loai.DataSource = dataTable;
+            cb_Loai.DisplayMember = "TenLoai"; // Tên cột hiển thị
+            cb_Loai.ValueMember = "MaLoai";     // Tên cột giá trị
+        }
+        private void fill_Mau()
+        {
+            string query = "SELECT MaMau, TenMau FROM [MauSac]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_Mau.DataSource = dataTable;
+            cb_Mau.DisplayMember = "TenMau"; // Tên cột hiển thị
+            cb_Mau.ValueMember = "MaMau";     // Tên cột giá trị
+        }
+        private void fill_Mua()
+        {
+            string query = "SELECT MaMua, TenMua FROM [Mua]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_Mua.DataSource = dataTable;
+            cb_Mua.DisplayMember = "TenMua"; // Tên cột hiển thị
+            cb_Mua.ValueMember = "MaMua";     // Tên cột giá trị
+        }
+        private void fill_NuocSX()
+        {
+            string query = "SELECT MaNuocSX, TenNuocSX FROM [NuocSX]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_NuocSX.DataSource = dataTable;
+            cb_NuocSX.DisplayMember = "TenNuocSX"; // Tên cột hiển thị
+            cb_NuocSX.ValueMember = "MaNuocSX";     // Tên cột giá trị
+        }
+        private void fill_HangSX()
+        {
+            string query = "SELECT MaHangSX, TenHangSX FROM [HangSX]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_Hang.DataSource = dataTable;
+            cb_Hang.DisplayMember = "TenHangSX"; // Tên cột hiển thị
+            cb_Hang.ValueMember = "MaHangSX";     // Tên cột giá trị
+        }
         private void tp_HangHoa_Leave(object sender, EventArgs e)
         {
 
@@ -62,15 +130,15 @@ namespace Main.HangHoa
         {
             txt_MaHang.Enabled = hien;
             txt_TenHang.Enabled = hien;
-            txt_MaHangSX.Enabled = hien;
-            txt_MaLoai.Enabled = hien;
-            txt_MaMau.Enabled = hien;
-            txt_MaKL.Enabled = hien;
-            txt_MaCL.Enabled = hien;
-            txt_MaCD.Enabled = hien;
-            txt_MaNSX.Enabled = hien;
+            cb_Hang.Enabled = hien;
+            cb_Loai.Enabled = hien;
+            cb_Mau.Enabled = hien;
+            cb_KL.Enabled = hien;
+            cb_CL.Enabled = hien;
+            cb_CD.Enabled = hien;
+            cb_NuocSX.Enabled = hien;
+            cb_Mua.Enabled = hien;
             txt_SL.Enabled = hien;
-            txt_MaMua.Enabled = hien;
             txt_BH.Enabled = hien;
             txt_GiaBan.Enabled = hien;
             txt_GiaNhap.Enabled = hien;
@@ -85,19 +153,20 @@ namespace Main.HangHoa
         {
             txt_MaHang.Text = "";
             txt_TenHang.Text = "";
-            txt_MaHangSX.Text = "";
-            txt_MaLoai.Text = "";
-            txt_MaMau.Text = "";
-            txt_MaKL.Text = "";
-            txt_MaCL.Text = "";
-            txt_MaCD.Text = "";
-            txt_MaNSX.Text = "";
-            txt_SL.Text = "0";
-            txt_MaMua.Text = "";
+            cb_Hang.Text = "";
+            cb_Loai.Text = "";
+            cb_Mau.Text = "";
+            cb_KL.Text = "";
+            cb_CL.Text = "";
+            cb_CD.Text = "";
+            cb_NuocSX.Text = "";
+            txt_SL.Text = "";
+            cb_Mua.Text = "";
             txt_BH.Text = "";
-            txt_GiaBan.Text = "0";
-            txt_GiaNhap.Text = "0";
+            txt_GiaBan.Text = "";
+            txt_GiaNhap.Text = "";
             txt_GhiChu.Text = "";
+            pictureBox_AnhSP.ImageLocation = "";
         }
         private void dtg_HangHoa_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -109,25 +178,29 @@ namespace Main.HangHoa
                 btn_HH_Xoa.Enabled = true;
                 Enable_HangHoa(false);
                 DataGridViewRow row = dtg_HangHoa.Rows[e.RowIndex];
-                txt_MaHang.Text = row.Cells["MaHang"].Value.ToString();
-                txt_TenHang.Text = row.Cells["TenHang"].Value.ToString();
-                txt_MaLoai.Text = row.Cells["MaLoai"].Value.ToString();
-                txt_MaKL.Text = row.Cells["MaKhoiLuong"].Value.ToString();
-                txt_MaHangSX.Text = row.Cells["MaHangSX"].Value.ToString();
-                txt_MaCL.Text = row.Cells["MaChatLieu"].Value.ToString();
-                txt_MaCD.Text = row.Cells["MaCongDung"].Value.ToString();
-                txt_MaMau.Text = row.Cells["MaMau"].Value.ToString();
-                txt_MaNSX.Text = row.Cells["MaNuocSX"].Value.ToString();
-                txt_MaMua.Text = row.Cells["MaMua"].Value.ToString();
-                txt_SL.Text = row.Cells["SoLuong"].Value.ToString();
-                txt_BH.Text = row.Cells["ThoiGianBaoHanh"].Value.ToString();
-                txt_GiaBan.Text = row.Cells["DonGiaBan"].Value.ToString();
-                txt_GiaNhap.Text = row.Cells["DonGiaNhap"].Value.ToString();
-                txt_GhiChu.Text = row.Cells["GhiChu"].Value.ToString();
-                pictureBox_AnhSP.ImageLocation = row.Cells["Anh"].Value.ToString();
+
+                txt_MaHang.Text = row.Cells["colMaHang"].Value.ToString();
+                txt_TenHang.Text = row.Cells["colTenHang"].Value.ToString();
+                txt_SL.Text = row.Cells["colSoLuong"].Value.ToString();
+                txt_BH.Text = row.Cells["colBaoHanh"].Value.ToString();
+                txt_GiaBan.Text = row.Cells["colGiaBan"].Value.ToString();
+                txt_GiaNhap.Text = row.Cells["colGiaNhap"].Value.ToString();
+                txt_GhiChu.Text = row.Cells["colGhiChu"].Value.ToString();
+
+                cb_Loai.SelectedValue = row.Cells["colLoai"].Value.ToString();
+                cb_KL.SelectedValue = row.Cells["colKhoiLuong"].Value.ToString();
+                cb_Hang.SelectedValue = row.Cells["colHangSX"].Value.ToString();
+                cb_CL.SelectedValue = row.Cells["colChatLieu"].Value.ToString();
+                cb_CD.SelectedValue = row.Cells["colCongDung"].Value.ToString();
+                cb_Mau.SelectedValue = row.Cells["colMau"].Value.ToString();
+                cb_NuocSX.SelectedValue = row.Cells["colNuocSX"].Value.ToString();
+                cb_Mua.SelectedValue = row.Cells["colMua"].Value.ToString();
+                
+                pictureBox_AnhSP.ImageLocation = row.Cells["colAnh"].Value.ToString();
             }
             catch (Exception ex)
             {
+                //MessageBox.Show("Error: " + ex.Message);
             }
         }
 
@@ -137,15 +210,15 @@ namespace Main.HangHoa
 
             string mahang = txt_MaHang.Text;
             string tenhang = txt_TenHang.Text;
-            string mahangsx = txt_MaHangSX.Text;
-            string maloai = txt_MaLoai.Text;
-            string mamau = txt_MaMau.Text;
-            string makl = txt_MaKL.Text;
-            string macl = txt_MaCL.Text;
-            string macd = txt_MaCD.Text;
-            string mansx = txt_MaNSX.Text;
+            string mahangsx = cb_Hang.SelectedValue.ToString();
+            string maloai = cb_Loai.SelectedValue.ToString();
+            string mamau = cb_Mau.SelectedValue.ToString();
+            string makl = cb_KL.SelectedValue.ToString();
+            string macl = cb_CL.SelectedValue.ToString();
+            string macd = cb_CD.SelectedValue.ToString();
+            string mansx = cb_NuocSX.SelectedValue.ToString();
+            string mamua = cb_Mua.SelectedValue.ToString();
             string sl = txt_SL.Text;
-            string mamua = txt_MaMua.Text;
             string bh = txt_BH.Text;
             string giaban = txt_GiaBan.Text;
             string gianhap = txt_GiaNhap.Text;
@@ -202,17 +275,41 @@ namespace Main.HangHoa
 
             if (btn_HH_Them.Enabled == true)
             {
-                sql = $"Select Count(*) From [HangHoa] Where MaHang ='{mahang}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = $"Select Count(*) From [HangHoa] Where MaHang = @mahang;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mahang", mahang},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại mặt hàng với mã {mahang}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
-                sql = "INSERT INTO [HangHoa] (MaHang, TenHang, MaLoai, MaKhoiLuong, MaHangSX, MaChatLieu," +
-                      " MaCongDung, MaMau, MaNuocSX, MaMua, SoLuong, DonGiaNhap, DonGiaBan, ThoiGianBaoHanh, GhiChu, Anh)";
-                sql += $"VALUES('{mahang}' ,N'{tenhang}', '{maloai}', '{makl}', '{mahangsx}', '{macl}', '{macd}'," +
-                       $"'{mamau}', '{mansx}', '{mamua}', '{sl}', '{gianhap}', '{giaban}', '{bh}', N'{ghichu}', '{anh}');";
+                sql = "INSERT INTO [HangHoa] (MaHang, TenHang, MaLoai, MaKhoiLuong, MaHangSX, MaChatLieu, MaCongDung," +
+                      "MaMau, MaNuocSX, MaMua, SoLuong, DonGiaNhap, DonGiaBan, ThoiGianBaoHanh, GhiChu, Anh)";
+                sql += "VALUES(@mahang,@tenhang, @maloai, @makl, @mahsx, @macl, @macd," +
+                       "@mamau, @mansx, @mamua, @sl, @gianhap, @giaban, @bh, @ghichu, @anh);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@mahang", mahang},
+                    {"@tenhang", tenhang},
+                    {"@maloai", maloai},
+                    {"@makl", makl},
+                    {"@mahsx", mahangsx},
+                    {"@macl", macl},
+                    {"@macd", macd},
+                    {"@mamau", mamau},
+                    {"@mansx", mansx},
+                    {"@mamua", mamua},
+                    {"@sl", sl},
+                    {"@gianhap", gianhap},
+                    {"@giaban", giaban},
+                    {"@bh", bh},
+                    {"@ghichu", ghichu},
+                    {"@anh", anh},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -220,18 +317,54 @@ namespace Main.HangHoa
             if (btn_HH_Sua.Enabled == true)
             {
                 sql = "Update [HangHoa] SET ";
-                sql += $"TenHang = N'{tenhang}', MaLoai = '{maloai}', MaKhoiLuong = '{makl}', MaHangSX = '{mahangsx}', " +
-                       $"MaChatLieu = '{macl}', MaCongDung = '{macd}', MaMau = '{mamau}', MaNuocSX = '{mansx}', MaMua = '{mamua}'," +
-                       $" SoLuong = '{sl}', DonGiaBan = '{giaban}', DonGiaNhap = '{gianhap}', ThoiGianBaoHanh = '{bh}', GhiChu = N'{ghichu}', Anh = '{anh}'";
-                sql += $"WHERE MaHang = '{mahang}'";
+                sql += "TenHang = @tenhang, " +
+                       "MaLoai = @maloai," +
+                       "MaKhoiLuong = @makl," +
+                       "MaHangSX = @mahsx, " +
+                       "MaChatLieu = @macl," +
+                       "MaCongDung = @macd," +
+                       "MaMau = @mamau," +
+                       "MaNuocSX = @mansx," +
+                       "MaMua = @mamua," +
+                       "SoLuong = @sl," +
+                       "DonGiaBan = @giaban," +
+                       "DonGiaNhap = @gianhap," +
+                       "ThoiGianBaoHanh = @bh," +
+                       "GhiChu = @ghichu," +
+                       "Anh = @anh";
+                sql += " WHERE MaHang = @mahang";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mahang", mahang},
+                    {"@tenhang", tenhang},
+                    {"@maloai", maloai},
+                    {"@makl", makl},
+                    {"@mahsx", mahangsx},
+                    {"@macl", macl},
+                    {"@macd", macd},
+                    {"@mamau", mamau},
+                    {"@mansx", mansx},
+                    {"@mamua", mamua},
+                    {"@sl", sl},
+                    {"@gianhap", gianhap},
+                    {"@giaban", giaban},
+                    {"@bh", bh},
+                    {"@ghichu", ghichu},
+                    {"@anh", anh},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_HH_Xoa.Enabled == true)
             {
-                sql = $"Delete From [HangHoa] Where MaHang = '{mahang}'";
+                sql = "Delete From [HangHoa] Where MaHang = @mahang";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mahang", mahang},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
-            _data.CapNhatDuLieu(sql);
 
             Load_HangHoa();
 
@@ -306,6 +439,42 @@ namespace Main.HangHoa
         {
 
         }
+
+        private void btn_TimKiem_Click(object sender, EventArgs e)
+        {
+            //Viet cau lenh SQL cho tim kiem
+            String sql = "SELECT * FROM [HangHoa]";
+            String dk = "";
+            //Tim theo MaSP khac rong
+            if (txt_TimKiem.Text.Trim() != "")
+            {
+                dk += " MaHang Like @mahang Or TenHang Like @tenhang";
+            }
+            //Ket hoi dk
+            if (dk != "")
+            {
+                sql += " WHERE" + dk;
+            }
+            //Goi phương thức Load dữ liệu kết hợp điều kiện tìm kiếm
+            var parameters = new Dictionary<string, object>
+            {
+                {"@mahang", "%" + txt_TimKiem.Text + "%"},
+                {"@tenhang", "%" + txt_TimKiem.Text + "%"}
+            };
+            DataTable dtHangHoa = _data.ExecuteQuery(sql, parameters);
+            if(dtHangHoa.Rows.Count > 0)
+            {
+                dtg_HangHoa.DataSource = dtHangHoa;
+                dtg_HangHoa.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy hàng hoá", "Thông báo", MessageBoxButtons.OK);
+                Load_HangHoa();
+            }
+            dtHangHoa.Dispose();
+        }
+
         private void ClearDataGrid(DataGridView gridView)
         {
             gridView.DataSource = null;

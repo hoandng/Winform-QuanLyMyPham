@@ -50,6 +50,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtp_NgayNhap = new System.Windows.Forms.DateTimePicker();
             this.errHDB = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btn_XuatFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_HDN)).BeginInit();
             this.panel_btn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errHDB)).BeginInit();
@@ -140,6 +141,7 @@
             // 
             // panel_btn
             // 
+            this.panel_btn.Controls.Add(this.btn_XuatFile);
             this.panel_btn.Controls.Add(this.btn_ChiTiet);
             this.panel_btn.Controls.Add(this.btn_Xoa);
             this.panel_btn.Controls.Add(this.btn_Sua);
@@ -151,7 +153,7 @@
             // 
             // btn_ChiTiet
             // 
-            this.btn_ChiTiet.Location = new System.Drawing.Point(77, 14);
+            this.btn_ChiTiet.Location = new System.Drawing.Point(65, 3);
             this.btn_ChiTiet.Name = "btn_ChiTiet";
             this.btn_ChiTiet.Size = new System.Drawing.Size(110, 48);
             this.btn_ChiTiet.TabIndex = 10;
@@ -161,7 +163,7 @@
             // 
             // btn_Xoa
             // 
-            this.btn_Xoa.Location = new System.Drawing.Point(638, 14);
+            this.btn_Xoa.Location = new System.Drawing.Point(557, 3);
             this.btn_Xoa.Name = "btn_Xoa";
             this.btn_Xoa.Size = new System.Drawing.Size(110, 48);
             this.btn_Xoa.TabIndex = 9;
@@ -171,7 +173,7 @@
             // 
             // btn_Sua
             // 
-            this.btn_Sua.Location = new System.Drawing.Point(428, 14);
+            this.btn_Sua.Location = new System.Drawing.Point(393, 3);
             this.btn_Sua.Name = "btn_Sua";
             this.btn_Sua.Size = new System.Drawing.Size(110, 48);
             this.btn_Sua.TabIndex = 8;
@@ -181,7 +183,7 @@
             // 
             // btn_Them
             // 
-            this.btn_Them.Location = new System.Drawing.Point(235, 14);
+            this.btn_Them.Location = new System.Drawing.Point(229, 3);
             this.btn_Them.Name = "btn_Them";
             this.btn_Them.Size = new System.Drawing.Size(110, 48);
             this.btn_Them.TabIndex = 7;
@@ -252,6 +254,16 @@
             // 
             this.errHDB.ContainerControl = this;
             // 
+            // btn_XuatFile
+            // 
+            this.btn_XuatFile.Location = new System.Drawing.Point(721, 3);
+            this.btn_XuatFile.Name = "btn_XuatFile";
+            this.btn_XuatFile.Size = new System.Drawing.Size(110, 48);
+            this.btn_XuatFile.TabIndex = 11;
+            this.btn_XuatFile.Text = "Xuất File Excel";
+            this.btn_XuatFile.UseVisualStyleBackColor = true;
+            this.btn_XuatFile.Click += new System.EventHandler(this.btn_XuatFile_Click);
+            // 
             // fHDN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -306,5 +318,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dtp_NgayNhap;
         private System.Windows.Forms.ErrorProvider errHDB;
+        private System.Windows.Forms.Button btn_XuatFile;
     }
 }

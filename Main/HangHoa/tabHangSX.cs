@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace Main.HangHoa
         }
         private void Load_HangSX()
         {
-            DataTable dtHangHoa = _data.DocBang("Select * from [HangSX]");
+            DataTable dtHangHoa = _data.ExecuteQuery("Select * from [HangSX]");
             dtg_HangSX.DataSource = dtHangHoa;
             dtg_HangSX.Columns[0].HeaderText = "Mã Hãng";
             dtg_HangSX.Columns[1].HeaderText = "Tên Hãng";
@@ -142,15 +143,25 @@ namespace Main.HangHoa
 
             if (btn_HSX_Them.Enabled == true)
             {
-                sql = $"Select Count(*) From [HangSX] Where MaHangSX ='{mahsx}';";
-                DataTable dt = _data.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = "Select Count(*) From [HangSX] Where MaHangSX = @mahsx;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mahsx", mahsx},
+                };
+                int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại hãng sản xuất với mã {mahsx}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [HangSX] (MaHangSX, TenHangSX)";
-                sql += $"VALUES('{mahsx}', N'{tenhsx}');";
+                sql += "VALUES(@mahsx, @tenhsx);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@mahsx", mahsx},
+                    {"@tenhsx", tenhsx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -158,17 +169,26 @@ namespace Main.HangHoa
             if (btn_HSX_Sua.Enabled == true)
             {
                 sql = "Update [HangSX] SET ";
-                sql += $"TenHangSX = N'{tenhsx}'";
-                sql += $"WHERE MaHangSX = '{mahsx}'";
+                sql += $"TenHangSX = @tenhsx ";
+                sql += $"WHERE MaHangSX = @mahsx";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@tenhsx", tenhsx},
+                    {"@mahsx", mahsx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_HSX_Xoa.Enabled == true)
             {
-                sql = $"Delete From [HangSX] Where MaHangSX = '{mahsx}'";
+                sql = $"Delete From [HangSX] Where MaHangSX = @mahsx";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@mahsx", mahsx},
+                };
+                _data.ExecuteNonQuery(sql, parameters);
             }
-
-            _data.CapNhatDuLieu(sql);
 
             Load_HangSX();
 

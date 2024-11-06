@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,8 +28,9 @@ namespace Main.KhachHang
             resetTextBox();
         }
         private void Load_KhachHang()
-        {   
-            DataTable dt = _database.DocBang("SELECT * FROM [KHACHHANG];");
+        {
+            string querry = "Select * from [KhachHang]";
+            DataTable dt = _database.ExecuteQuery(querry);
             dgv_KhachHang.DataSource = dt;
             dgv_KhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -144,15 +146,28 @@ namespace Main.KhachHang
             if (btn_Them.Enabled == true)
             {
 
-                sql = $"Select Count(*) From [KhachHang] Where MaKhach ='{ma}';";
-                DataTable dt = _database.DocBang(sql);
-                if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
+                sql = $"Select Count(*) From [KhachHang] Where MaKhach = @makh;";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@makh", ma},
+
+                };
+                int count = Convert.ToInt32(_database.ExecuteScalar(sql, parameters));
+                if (count > 0)
                 {
                     MessageBox.Show($"Đã tồn tại Khách hàng với mã {ma}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
                 sql = "INSERT INTO [KhachHang] (MaKhach, TenKhach, DiaChi, DienThoai)";
-                sql += $"VALUES('{ma}', N'{ten}', N'{diachi}', '{sdt}');";
+                sql += "VALUES(@makh, @tenkh, @diachi, @dienthoai);";
+                parameters = new Dictionary<string, object>
+                {
+                    {"@makh", ma},
+                    {"@tenkh", ten},
+                    {"@diachi", diachi},
+                    {"@dienthoai",sdt }
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
 
 
@@ -160,17 +175,28 @@ namespace Main.KhachHang
             if (btn_Sua.Enabled == true)
             {
                 sql = "Update [KhachHang] SET ";
-                sql += $"TenKhach = N'{ten}', DiaChi = N'{diachi}', DienThoai = '{sdt}'";
-                sql += $"WHERE MaKhach = '{ma}'";
+                sql += "TenKhach = @tenkh, DiaChi = @diachi, DienThoai = @sdt ";
+                sql += "WHERE MaKhach = @makh";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@makh", ma},
+                    {"@tenkh", ten},
+                    {"@diachi", diachi},
+                    {"@sdt",sdt }
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
 
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_Xoa.Enabled == true)
             {
-                sql = $"Delete From [KhachHang] Where MaKhach = '{ma}'";
+                sql = "Delete From [KhachHang] Where MaKhach = @makh";
+                var parameters = new Dictionary<string, object>
+                {
+                    {"@makh", ma},
+                };
+                _database.ExecuteNonQuery(sql, parameters);
             }
-
-            _database.CapNhatDuLieu(sql);
 
             Load_KhachHang();
 
