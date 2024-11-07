@@ -19,6 +19,8 @@ namespace Main.NhanVien
             string querry = "Select * from [NhanVien]";
             DataTable dtNhanVien = _database.ExecuteQuery(querry);
             dtg_NhanVien.DataSource = dtNhanVien;
+            dtg_NhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             dtNhanVien.Dispose();
         }
 

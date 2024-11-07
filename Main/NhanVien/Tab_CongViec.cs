@@ -18,6 +18,7 @@ namespace Main.NhanVien
             DataTable dt = _database.ExecuteQuery(querry);
             dtg_CongViec.DataSource = dt;
 
+            dtg_CongViec.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dtg_CongViec.Columns["MucLuong"].DefaultCellStyle.Format = "C0";
             dtg_CongViec.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }

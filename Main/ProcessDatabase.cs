@@ -7,17 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Common;
-
+using System.Configuration;
 namespace Main
 {
     internal class ProcessDatabase
     {
         private SqlConnection _connection;
 
-        // Constructor với chuỗi kết nối (connection string)
+        // Constructor với chuỗi kết nối (connection string) từ App.config
         public ProcessDatabase()
         {
-            _connection = new SqlConnection(@"Server=HOANDANG\THANHDANGHOAN;Database=QL_MyPham;Trusted_Connection=True;");
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDatabase"].ConnectionString;
+            _connection = new SqlConnection(connectionString);
         }
         // Mở kết nối đến database
         public void OpenConnection()

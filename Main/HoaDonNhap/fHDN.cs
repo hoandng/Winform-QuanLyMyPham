@@ -26,6 +26,9 @@ namespace Main.HoaDonNhap
         }
         private void fHDN_Load(object sender, EventArgs e)
         {
+            fill_NhanVien();
+            fill_NhaCC();
+
             Load_HDN();
             resetTextBox();
             enableControls(false);
@@ -36,7 +39,7 @@ namespace Main.HoaDonNhap
 
         private void Load_HDN()
         {
-            string querry = "Select * from [HoaDonNhap]";
+            string querry = "Select * from [HoaDonNhap] ORDER BY NGAYNHAP DESC";
             DataTable dataTable = _data.ExecuteQuery(querry);
             dgv_HDN.DataSource = dataTable;
 
@@ -45,21 +48,41 @@ namespace Main.HoaDonNhap
             dataTable.Dispose();
         }
 
+        private void fill_NhanVien()
+        {
+            string query = "SELECT MaNV, TenNV FROM [NhanVien]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_MaNV.DataSource = dataTable;
+            cb_MaNV.DisplayMember = "TenNV"; // Tên cột hiển thị
+            cb_MaNV.ValueMember = "MaNV";     // Tên cột giá trị
+        }
+
+        private void fill_NhaCC()
+        {
+            string query = "SELECT MaNCC, TenNCC FROM [NhaCungCap]";
+            DataTable dataTable = _data.ExecuteQuery(query);
+
+            cb_MaNCC.DataSource = dataTable;
+            cb_MaNCC.DisplayMember = "TenNCC"; // Tên cột hiển thị
+            cb_MaNCC.ValueMember = "MaNCC";     // Tên cột giá trị
+        }
+
         private void resetTextBox()
         {
             txt_SoHDN.Text = "";
-            txt_MaNV.Text = "";
+            cb_MaNV.Text = "";
             dtp_NgayNhap.Value = DateTime.Now;
-            txt_MaNCC.Text = "";
+            cb_MaNCC.Text = "";
             txt_TT.Text = "";
         }
 
         private void enableControls(bool enable)
         {
             txt_SoHDN.Enabled = enable;
-            txt_MaNV.Enabled = enable;
+            cb_MaNV.Enabled = enable;
             dtp_NgayNhap.Enabled = enable;
-            txt_MaNCC.Enabled = enable;
+            cb_MaNCC.Enabled = enable;
             txt_TT.Enabled = enable;
 
             btn_Luu.Enabled = enable;
@@ -77,9 +100,9 @@ namespace Main.HoaDonNhap
                 btn_ChiTiet.Enabled = true;
                 DataGridViewRow row = dgv_HDN.Rows[e.RowIndex];
                 txt_SoHDN.Text = row.Cells["SoHDN"].Value.ToString();
-                txt_MaNV.Text = row.Cells["MaNV"].Value.ToString();
+                cb_MaNV.SelectedValue = row.Cells["MaNV"].Value.ToString();
                 dtp_NgayNhap.Text = row.Cells["NgayNhap"].Value.ToString();
-                txt_MaNCC.Text = row.Cells["MaNCC"].Value.ToString();
+                cb_MaNCC.SelectedValue = row.Cells["MaNCC"].Value.ToString();
                 txt_TT.Text = row.Cells["TongTien"].Value.ToString();
             }
             catch (Exception ex)
@@ -126,8 +149,8 @@ namespace Main.HoaDonNhap
             string sql = "";
 
             string sohdn = txt_SoHDN.Text;
-            string manv = txt_MaNV.Text;
-            string mancc = txt_MaNCC.Text;
+            string manv = cb_MaNV.Text;
+            string mancc = cb_MaNCC.Text;
             string ngaynhap = dtp_NgayNhap.Value.ToString("MM/dd/yyyy");
             string tongtien = txt_TT.Text;
             //Kiểm tra dữ liêu

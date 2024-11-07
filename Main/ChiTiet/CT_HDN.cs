@@ -83,7 +83,7 @@ namespace Main.ChiTiet
 
         private void Load_CTHDN()
         {
-            string querry = "Select * From [ChiTietHDN] Where SoHDN = @sohdn";
+            string querry = "Select * From [ChiTietHDN ] Where SoHDN = @sohdn";
             var parameters = new Dictionary<string, object>{
                 {"@sohdn", CTHD_SoHDN},
             };
@@ -177,31 +177,51 @@ namespace Main.ChiTiet
 
             string mahang = cb_MaHang.SelectedValue.ToString();
             string sl = txt_SL.Text;
+            string dongia = txt_DonGia.Text;
             string giamgia = txt_GiamGia.Text;
             string thanhtien = txt_ThanhTien.Text;
 
-            //Kiểm tra dữ liệu số lượng
+            // Kiểm tra dữ liệu số lượng
             int quantity;
-            if (!int.TryParse(sl, out quantity))
+            if (!int.TryParse(sl, out quantity) || quantity <= 0)
             {
-                errChiTiet.SetError(txt_SL, "Số Lượng phải là một số");
+                errChiTiet.SetError(txt_SL, "Số lượng phải là một số nguyên dương");
                 return;
             }
             else
             {
-                errChiTiet.Clear();
+                errChiTiet.SetError(txt_SL, "");
             }
 
-            //Kiểm tra giảm giá
-            int discount;
-            if (!int.TryParse(giamgia, out discount))
+            // Kiểm tra đơn giá
+            decimal price;
+            if (!decimal.TryParse(dongia, out price) || price <= 0)
             {
-                errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số");
+                errChiTiet.SetError(txt_DonGia, "Đơn giá phải là một số dương");
                 return;
             }
             else
             {
-                errChiTiet.Clear();
+                errChiTiet.SetError(txt_DonGia, "");
+            }
+
+            // Kiểm tra giảm giá
+            int discount;
+            if (giamgia.Trim().Length > 0)
+            {
+                if (!int.TryParse(giamgia, out discount) || discount < 0 || discount > 100)
+                {
+                    errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số từ 0 đến 100");
+                    return;
+                }
+                else
+                {
+                    errChiTiet.SetError(txt_GiamGia, "");
+                }
+            }
+            else
+            {
+                discount = 0;
             }
 
             if (btn_Them.Enabled == true)
@@ -220,13 +240,14 @@ namespace Main.ChiTiet
                     MessageBox.Show($"Đã tồn tại Hàng hoá với mã {mahang} tại hoá đơn {CTHD_SoHDN}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
-                sql = "INSERT INTO [ChiTietHDN] (SoHDN, MaHang, SoLuong, GiamGia, ThanhTien)";
-                sql += $"VALUES(@sohdn, @mahang, @soluong, @giamgia, @thanhtien);";
+                sql = "INSERT INTO [ChiTietHDN] (SoHDN, MaHang, SoLuong, DonGia, GiamGia, ThanhTien)";
+                sql += $"VALUES(@sohdn, @mahang, @soluong, @dongia, @giamgia, @thanhtien);";
                 parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
                     {"@mahang", mahang},
                     {"@soluong", sl},
+                    {"@dongia", dongia},
                     {"@giamgia", giamgia},
                     {"@thanhtien", thanhtien},
                 };
@@ -238,13 +259,14 @@ namespace Main.ChiTiet
             if (btn_Sua.Enabled == true)
             {
                 sql = "Update [ChiTietHDN] SET ";
-                sql += $"SoLuong = @soluong, GiamGia = @giamgia, ThanhTien = @thanhtien ";
+                sql += $"SoLuong = @soluong, DonGia = @dongia, GiamGia = @giamgia, ThanhTien = @thanhtien ";
                 sql += $"WHERE SoHDN = @sohdn And MaHang = @mahang";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN },
                     {"@mahang", mahang},
                     {"@soluong", sl},
+                    {"@dongia", dongia},
                     {"@giamgia", giamgia},
                     {"@thanhtien", thanhtien},
 
@@ -305,8 +327,8 @@ namespace Main.ChiTiet
             }
 
             // Kiểm tra đơn giá
-            int price;
-            if (!int.TryParse(dongia, out price) || price <= 0)
+            decimal price;
+            if (!decimal.TryParse(dongia, out price) || price <= 0)
             {
                 errChiTiet.SetError(txt_DonGia, "Đơn giá phải là một số dương");
                 return;
@@ -338,8 +360,9 @@ namespace Main.ChiTiet
             // Tính tổng tiền
             try
             {
-                int total = Math.Abs(price * quantity * (100 - discount) / 100);
-                txt_ThanhTien.Text = total.ToString();
+                // Sử dụng decimal cho các phép tính lớn
+                decimal total = price * quantity * (100 - discount) / 100;
+                txt_ThanhTien.Text = total.ToString(); // Hiển thị số tiền với dấu phân cách hàng nghìn
             }
             catch (Exception ex)
             {
@@ -363,7 +386,6 @@ namespace Main.ChiTiet
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -28,6 +28,16 @@ namespace Main.HangHoa
         }
         private void tp_HangHoa_Enter(object sender, EventArgs e)
         {
+            // Đổ dữ liệu vào Combobox
+            fill_ChatLieu();
+            fill_CongDung();
+            fill_KhoiLuong();
+            fill_Loai();
+            fill_Mau();
+            fill_Mua();
+            fill_NuocSX();
+            fill_HangSX();
+
             Load_HangHoa();
             Enable_HangHoa(false);
             ResetValueTextBox_HangHoa();
@@ -38,15 +48,6 @@ namespace Main.HangHoa
 
             lb_HH_TrangThai.Text = "";
 
-            // Đổ dữ liệu vào Combobox
-            fill_ChatLieu();
-            fill_CongDung();
-            fill_KhoiLuong();
-            fill_Loai();
-            fill_Mau();
-            fill_Mua();
-            fill_NuocSX();
-            fill_HangSX();
 
 
             //ClearDataGrid(dtg_HangHoa);

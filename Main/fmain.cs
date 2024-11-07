@@ -52,7 +52,7 @@ namespace Main
                 if (currentButton != (Button)btnSender)
                 {
                     DisableButton();
-                    Color color = Color.FromArgb(37, 113, 128);
+                    Color color = Color.FromArgb(147, 129, 255);
                     currentButton = (Button)btnSender;
                     currentButton.BackColor = color;
                     currentButton.ForeColor = Color.White;
@@ -65,7 +65,7 @@ namespace Main
             {
                 if (previousBtn.GetType() == typeof(Button))
                 {
-                    previousBtn.BackColor = Color.FromArgb(160, 71, 71);
+                    previousBtn.BackColor = Color.FromArgb(184, 184, 255);
                     previousBtn.ForeColor = Color.Black;
                 }
             }
@@ -112,9 +112,19 @@ namespace Main
 
         private void btn_DangXuat_Click(object sender, EventArgs e)
         {
-            this.Dispose();
-            fLogin dangnhap = new fLogin();
-            dangnhap.ShowDialog();
+            if(MessageBox.Show("Bạn có muốn đăng xuất không", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                this.Dispose();
+                fLogin dangnhap = new fLogin();
+                dangnhap.ShowDialog();
+            }
+
         }
+
+        private void fmain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }

@@ -181,30 +181,30 @@ namespace Main.ChiTiet
             string giamgia = txt_GiamGia.Text;
             string thanhtien = txt_ThanhTien.Text;
 
-            //Kiểm tra dữ liệu số lượng
+            // Kiểm tra dữ liệu số lượng
             int quantity;
-            if (!int.TryParse(sl, out quantity))
+            if (!int.TryParse(sl, out quantity) || quantity <= 0)
             {
-                errChiTiet.SetError(txt_SL, "Số Lượng phải là một số");
+                errChiTiet.SetError(txt_SL, "Số lượng phải là một số nguyên dương");
                 return;
             }
             else
             {
-                errChiTiet.Clear();
+                errChiTiet.SetError(txt_SL, "");
             }
 
-            //Kiểm tra giảm giá
+            // Kiểm tra giảm giá
             int discount;
             if (giamgia.Trim().Length > 0)
             {
-                if (!int.TryParse(giamgia, out discount))
+                if (!int.TryParse(giamgia, out discount) || discount < 0 || discount > 100)
                 {
-                    errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số");
+                    errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số từ 0 đến 100");
                     return;
                 }
                 else
                 {
-                    errChiTiet.Clear();
+                    errChiTiet.SetError(txt_GiamGia, "");
                 }
             }
             else
@@ -311,8 +311,8 @@ namespace Main.ChiTiet
             }
 
             // Kiểm tra đơn giá
-            int price;
-            if (!int.TryParse(dongia, out price) || price <= 0)
+            decimal price;
+            if (!decimal.TryParse(dongia, out price) || price <= 0)
             {
                 errChiTiet.SetError(txt_DonGia, "Đơn giá phải là một số dương");
                 return;
@@ -344,8 +344,9 @@ namespace Main.ChiTiet
             // Tính tổng tiền
             try
             {
-                int total = Math.Abs(price * quantity * (100 - discount) / 100);
-                txt_ThanhTien.Text = total.ToString();
+                // Sử dụng decimal cho các phép tính lớn
+                decimal total = price * quantity * (100 - discount) / 100;
+                txt_ThanhTien.Text = total.ToString(); // Hiển thị số tiền với dấu phân cách hàng nghìn
             }
             catch (Exception ex)
             {

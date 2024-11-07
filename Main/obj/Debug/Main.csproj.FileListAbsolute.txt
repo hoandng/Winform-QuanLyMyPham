@@ -13,7 +13,6 @@ D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.HoaDonNhap.fHDN.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.NhaCungCap.fNhaCC.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.HangHoa.HangHoa.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.NhanVien.NhanVien.resources
-D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.ChiTiet.CT_HangHoa.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.ChiTiet.CT_HDB.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.ChiTiet.CT_HDN.resources
 D:\VisualPrograming\BTL\QLBH\Main\bin\Debug\ClosedXML.dll
@@ -45,7 +44,6 @@ D:\VisualPrograming\BTL\QLBH\Main\bin\Debug\System.IO.Packaging.xml
 D:\VisualPrograming\BTL\QLBH\Main\bin\Debug\System.Memory.xml
 D:\VisualPrograming\BTL\QLBH\Main\bin\Debug\System.Numerics.Vectors.xml
 D:\VisualPrograming\BTL\QLBH\Main\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.HoaDonBan.XuatFile.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.csproj.Up2Date
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.ThongKe.ThongKe.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Login.fLogin.resources

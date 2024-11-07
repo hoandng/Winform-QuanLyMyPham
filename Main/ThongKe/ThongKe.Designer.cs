@@ -82,6 +82,7 @@
             // 
             // tp_DoanhThu
             // 
+            this.tp_DoanhThu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
             this.tp_DoanhThu.Controls.Add(this.groupBox2);
             this.tp_DoanhThu.Controls.Add(this.panel1);
             this.tp_DoanhThu.Location = new System.Drawing.Point(4, 25);
@@ -90,7 +91,6 @@
             this.tp_DoanhThu.Size = new System.Drawing.Size(1274, 674);
             this.tp_DoanhThu.TabIndex = 0;
             this.tp_DoanhThu.Text = "Doanh Thu";
-            this.tp_DoanhThu.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -148,6 +148,7 @@
             // 
             // tp_MHBC
             // 
+            this.tp_MHBC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
             this.tp_MHBC.Controls.Add(this.groupBox3);
             this.tp_MHBC.Controls.Add(this.groupBox1);
             this.tp_MHBC.Controls.Add(this.panel2);
@@ -157,18 +158,18 @@
             this.tp_MHBC.Size = new System.Drawing.Size(1274, 674);
             this.tp_MHBC.TabIndex = 1;
             this.tp_MHBC.Text = "Mặt hàng bán chạy";
-            this.tp_MHBC.UseVisualStyleBackColor = true;
             this.tp_MHBC.Enter += new System.EventHandler(this.tp_MHBC_Enter);
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dgv_MHBC);
-            this.groupBox3.Location = new System.Drawing.Point(62, 364);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(3, 350);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1166, 284);
+            this.groupBox3.Size = new System.Drawing.Size(1268, 321);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Thông tin";
             // 
             // dgv_MHBC
             // 
@@ -180,7 +181,7 @@
             this.dgv_MHBC.Name = "dgv_MHBC";
             this.dgv_MHBC.RowHeadersWidth = 51;
             this.dgv_MHBC.RowTemplate.Height = 24;
-            this.dgv_MHBC.Size = new System.Drawing.Size(1080, 225);
+            this.dgv_MHBC.Size = new System.Drawing.Size(1182, 262);
             this.dgv_MHBC.TabIndex = 0;
             this.dgv_MHBC.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_MHBC_CellClick);
             // 
@@ -211,6 +212,7 @@
             // 
             // txt_TenHang
             // 
+            this.txt_TenHang.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txt_TenHang.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_TenHang.Location = new System.Drawing.Point(146, 151);
             this.txt_TenHang.Name = "txt_TenHang";
@@ -220,6 +222,7 @@
             // 
             // label44
             // 
+            this.label44.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label44.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -231,6 +234,7 @@
             // 
             // txt_MaHang
             // 
+            this.txt_MaHang.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txt_MaHang.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_MaHang.Location = new System.Drawing.Point(146, 89);
             this.txt_MaHang.Name = "txt_MaHang";
@@ -240,6 +244,7 @@
             // 
             // pb_AnhSP
             // 
+            this.pb_AnhSP.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pb_AnhSP.Location = new System.Drawing.Point(939, 21);
             this.pb_AnhSP.Name = "pb_AnhSP";
             this.pb_AnhSP.Size = new System.Drawing.Size(250, 250);
@@ -249,6 +254,7 @@
             // 
             // cb_MHBC_Nam
             // 
+            this.cb_MHBC_Nam.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MHBC_Nam.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MHBC_Nam.FormattingEnabled = true;
             this.cb_MHBC_Nam.Location = new System.Drawing.Point(396, 32);
@@ -259,6 +265,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -270,6 +277,7 @@
             // 
             // cb_MHBC_Thang
             // 
+            this.cb_MHBC_Thang.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MHBC_Thang.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MHBC_Thang.FormattingEnabled = true;
             this.cb_MHBC_Thang.Location = new System.Drawing.Point(112, 30);
@@ -280,6 +288,7 @@
             // 
             // label36
             // 
+            this.label36.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label36.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -291,6 +300,7 @@
             // 
             // txt_SL
             // 
+            this.txt_SL.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txt_SL.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_SL.Location = new System.Drawing.Point(211, 211);
             this.txt_SL.Name = "txt_SL";
@@ -300,6 +310,7 @@
             // 
             // txt_TenHangSX
             // 
+            this.txt_TenHangSX.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txt_TenHangSX.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_TenHangSX.Location = new System.Drawing.Point(586, 151);
             this.txt_TenHangSX.Name = "txt_TenHangSX";
@@ -309,6 +320,7 @@
             // 
             // txt_MaHangSX
             // 
+            this.txt_MaHangSX.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txt_MaHangSX.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_MaHangSX.Location = new System.Drawing.Point(586, 89);
             this.txt_MaHangSX.Name = "txt_MaHangSX";
@@ -318,6 +330,7 @@
             // 
             // label35
             // 
+            this.label35.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label35.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -329,6 +342,7 @@
             // 
             // label31
             // 
+            this.label31.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label31.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -340,6 +354,7 @@
             // 
             // label32
             // 
+            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label32.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -351,6 +366,7 @@
             // 
             // label33
             // 
+            this.label33.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label33.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -371,6 +387,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(532, 14);

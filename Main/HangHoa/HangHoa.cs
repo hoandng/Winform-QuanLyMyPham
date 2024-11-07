@@ -25,9 +25,8 @@ namespace Main.HangHoa
             Load_HangHoa();
             ResetValueTextBox_HangHoa();
             Enable_HangHoa(false);
-
+            lb_HH_TrangThai.Text = "";
         }
 
-        
     }
 }

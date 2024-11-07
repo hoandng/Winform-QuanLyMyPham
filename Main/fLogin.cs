@@ -42,7 +42,7 @@ namespace Login
             {
                 this.Hide();
                 fmain main = new fmain();
-                main.ShowDialog();
+                main.Show();
             }
             else
             {
@@ -52,14 +52,9 @@ namespace Login
 
         private void btn_exit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void fLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Bạn chắc chăn muốn thoát không?", "Thông báo!", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show("Bạn chắc chăn muốn thoát không?", "Thông báo!", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                e.Cancel = true;
+                Application.Exit();
             }
         }
     }
