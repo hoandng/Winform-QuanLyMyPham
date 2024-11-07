@@ -63,12 +63,12 @@
             this.cb_MaHang = new System.Windows.Forms.ComboBox();
             this.txt_SĐT = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.txt_MaKH = new System.Windows.Forms.TextBox();
+            this.txt_MaNV = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.dgv_ChiTiet = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.errChiTiet = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txt_MaNV = new System.Windows.Forms.TextBox();
-            this.txt_MaKH = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -113,10 +113,10 @@
             // txt_SoHDB
             // 
             this.txt_SoHDB.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_SoHDB.Enabled = false;
             this.txt_SoHDB.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_SoHDB.Location = new System.Drawing.Point(207, 25);
             this.txt_SoHDB.Name = "txt_SoHDB";
+            this.txt_SoHDB.ReadOnly = true;
             this.txt_SoHDB.Size = new System.Drawing.Size(188, 25);
             this.txt_SoHDB.TabIndex = 2;
             // 
@@ -190,6 +190,7 @@
             this.btn_Luu.TabIndex = 4;
             this.btn_Luu.Text = "Lưu";
             this.btn_Luu.UseVisualStyleBackColor = true;
+            this.btn_Luu.Click += new System.EventHandler(this.btn_Luu_Click);
             // 
             // btn_Huy
             // 
@@ -462,6 +463,26 @@
             this.label13.TabIndex = 1;
             this.label13.Text = "SĐT";
             // 
+            // txt_MaKH
+            // 
+            this.txt_MaKH.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txt_MaKH.Enabled = false;
+            this.txt_MaKH.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MaKH.Location = new System.Drawing.Point(647, 17);
+            this.txt_MaKH.Name = "txt_MaKH";
+            this.txt_MaKH.Size = new System.Drawing.Size(188, 25);
+            this.txt_MaKH.TabIndex = 2;
+            // 
+            // txt_MaNV
+            // 
+            this.txt_MaNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txt_MaNV.Enabled = false;
+            this.txt_MaNV.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MaNV.Location = new System.Drawing.Point(206, 76);
+            this.txt_MaNV.Name = "txt_MaNV";
+            this.txt_MaNV.Size = new System.Drawing.Size(188, 25);
+            this.txt_MaNV.TabIndex = 2;
+            // 
             // label12
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -485,6 +506,7 @@
             this.dgv_ChiTiet.RowTemplate.Height = 24;
             this.dgv_ChiTiet.Size = new System.Drawing.Size(799, 179);
             this.dgv_ChiTiet.TabIndex = 8;
+            this.dgv_ChiTiet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ChiTiet_CellClick);
             // 
             // groupBox2
             // 
@@ -500,26 +522,6 @@
             // errChiTiet
             // 
             this.errChiTiet.ContainerControl = this;
-            // 
-            // txt_MaNV
-            // 
-            this.txt_MaNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_MaNV.Enabled = false;
-            this.txt_MaNV.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_MaNV.Location = new System.Drawing.Point(206, 76);
-            this.txt_MaNV.Name = "txt_MaNV";
-            this.txt_MaNV.Size = new System.Drawing.Size(188, 25);
-            this.txt_MaNV.TabIndex = 2;
-            // 
-            // txt_MaKH
-            // 
-            this.txt_MaKH.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_MaKH.Enabled = false;
-            this.txt_MaKH.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_MaKH.Location = new System.Drawing.Point(647, 17);
-            this.txt_MaKH.Name = "txt_MaKH";
-            this.txt_MaKH.Size = new System.Drawing.Size(188, 25);
-            this.txt_MaKH.TabIndex = 2;
             // 
             // CT_HDB
             // 

@@ -41,6 +41,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pannel_content = new System.Windows.Forms.Panel();
+            this.btn_DangXuat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pannel_menu_btn.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -59,16 +60,17 @@
             // 
             // pannel_menu_btn
             // 
+            this.pannel_menu_btn.Controls.Add(this.btn_DangXuat);
             this.pannel_menu_btn.Controls.Add(this.brn_NhaCC);
             this.pannel_menu_btn.Controls.Add(this.btn_DonNhap);
-            this.pannel_menu_btn.Controls.Add(this.btn_ThongKe);
             this.pannel_menu_btn.Controls.Add(this.btn_DonBan);
             this.pannel_menu_btn.Controls.Add(this.btn_NhanVien);
             this.pannel_menu_btn.Controls.Add(this.btn_KhachHang);
             this.pannel_menu_btn.Controls.Add(this.btn_HangHoa);
+            this.pannel_menu_btn.Controls.Add(this.btn_ThongKe);
             this.pannel_menu_btn.Location = new System.Drawing.Point(0, 190);
             this.pannel_menu_btn.Name = "pannel_menu_btn";
-            this.pannel_menu_btn.Size = new System.Drawing.Size(212, 516);
+            this.pannel_menu_btn.Size = new System.Drawing.Size(212, 660);
             this.pannel_menu_btn.TabIndex = 2;
             // 
             // brn_NhaCC
@@ -77,7 +79,7 @@
             this.brn_NhaCC.FlatAppearance.BorderSize = 0;
             this.brn_NhaCC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.brn_NhaCC.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.brn_NhaCC.Location = new System.Drawing.Point(0, 353);
+            this.brn_NhaCC.Location = new System.Drawing.Point(0, 423);
             this.brn_NhaCC.Name = "brn_NhaCC";
             this.brn_NhaCC.Size = new System.Drawing.Size(212, 70);
             this.brn_NhaCC.TabIndex = 3;
@@ -91,7 +93,7 @@
             this.btn_DonNhap.FlatAppearance.BorderSize = 0;
             this.btn_DonNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DonNhap.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_DonNhap.Location = new System.Drawing.Point(0, 280);
+            this.btn_DonNhap.Location = new System.Drawing.Point(0, 350);
             this.btn_DonNhap.Name = "btn_DonNhap";
             this.btn_DonNhap.Size = new System.Drawing.Size(212, 73);
             this.btn_DonNhap.TabIndex = 3;
@@ -102,11 +104,11 @@
             // btn_ThongKe
             // 
             this.btn_ThongKe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
-            this.btn_ThongKe.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_ThongKe.Dock = System.Windows.Forms.DockStyle.Top;
             this.btn_ThongKe.FlatAppearance.BorderSize = 0;
             this.btn_ThongKe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ThongKe.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ThongKe.Location = new System.Drawing.Point(0, 446);
+            this.btn_ThongKe.Location = new System.Drawing.Point(0, 0);
             this.btn_ThongKe.Name = "btn_ThongKe";
             this.btn_ThongKe.Size = new System.Drawing.Size(212, 70);
             this.btn_ThongKe.TabIndex = 2;
@@ -121,7 +123,7 @@
             this.btn_DonBan.FlatAppearance.BorderSize = 0;
             this.btn_DonBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DonBan.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_DonBan.Location = new System.Drawing.Point(0, 210);
+            this.btn_DonBan.Location = new System.Drawing.Point(0, 280);
             this.btn_DonBan.Name = "btn_DonBan";
             this.btn_DonBan.Size = new System.Drawing.Size(212, 70);
             this.btn_DonBan.TabIndex = 2;
@@ -136,7 +138,7 @@
             this.btn_NhanVien.FlatAppearance.BorderSize = 0;
             this.btn_NhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_NhanVien.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_NhanVien.Location = new System.Drawing.Point(0, 140);
+            this.btn_NhanVien.Location = new System.Drawing.Point(0, 210);
             this.btn_NhanVien.Name = "btn_NhanVien";
             this.btn_NhanVien.Size = new System.Drawing.Size(212, 70);
             this.btn_NhanVien.TabIndex = 2;
@@ -151,7 +153,7 @@
             this.btn_KhachHang.FlatAppearance.BorderSize = 0;
             this.btn_KhachHang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_KhachHang.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_KhachHang.Location = new System.Drawing.Point(0, 70);
+            this.btn_KhachHang.Location = new System.Drawing.Point(0, 140);
             this.btn_KhachHang.Name = "btn_KhachHang";
             this.btn_KhachHang.Size = new System.Drawing.Size(212, 70);
             this.btn_KhachHang.TabIndex = 2;
@@ -166,7 +168,7 @@
             this.btn_HangHoa.FlatAppearance.BorderSize = 0;
             this.btn_HangHoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_HangHoa.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_HangHoa.Location = new System.Drawing.Point(0, 0);
+            this.btn_HangHoa.Location = new System.Drawing.Point(0, 70);
             this.btn_HangHoa.Name = "btn_HangHoa";
             this.btn_HangHoa.Size = new System.Drawing.Size(212, 70);
             this.btn_HangHoa.TabIndex = 2;
@@ -201,6 +203,20 @@
             this.pannel_content.Name = "pannel_content";
             this.pannel_content.Size = new System.Drawing.Size(1290, 853);
             this.pannel_content.TabIndex = 3;
+            // 
+            // btn_DangXuat
+            // 
+            this.btn_DangXuat.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_DangXuat.FlatAppearance.BorderSize = 0;
+            this.btn_DangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_DangXuat.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_DangXuat.Location = new System.Drawing.Point(0, 590);
+            this.btn_DangXuat.Name = "btn_DangXuat";
+            this.btn_DangXuat.Size = new System.Drawing.Size(212, 70);
+            this.btn_DangXuat.TabIndex = 4;
+            this.btn_DangXuat.Text = "Đăng Xuất";
+            this.btn_DangXuat.UseVisualStyleBackColor = true;
+            this.btn_DangXuat.Click += new System.EventHandler(this.btn_DangXuat_Click);
             // 
             // fmain
             // 
@@ -238,6 +254,7 @@
         private System.Windows.Forms.Button btn_NhanVien;
         private System.Windows.Forms.Button btn_DonNhap;
         private System.Windows.Forms.Button brn_NhaCC;
+        private System.Windows.Forms.Button btn_DangXuat;
     }
 }
 

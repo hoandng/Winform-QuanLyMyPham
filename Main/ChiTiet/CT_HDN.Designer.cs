@@ -304,6 +304,7 @@
             this.dgv_ChiTiet.RowTemplate.Height = 24;
             this.dgv_ChiTiet.Size = new System.Drawing.Size(799, 173);
             this.dgv_ChiTiet.TabIndex = 8;
+            this.dgv_ChiTiet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ChiTiet_CellClick);
             // 
             // txt_SoHDN
             // 

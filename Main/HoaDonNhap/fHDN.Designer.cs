@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgv_HDN = new System.Windows.Forms.DataGridView();
             this.panel_btn = new System.Windows.Forms.Panel();
+            this.btn_XuatFile = new System.Windows.Forms.Button();
             this.btn_ChiTiet = new System.Windows.Forms.Button();
             this.btn_Xoa = new System.Windows.Forms.Button();
             this.btn_Sua = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtp_NgayNhap = new System.Windows.Forms.DateTimePicker();
             this.errHDB = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btn_XuatFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_HDN)).BeginInit();
             this.panel_btn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errHDB)).BeginInit();
@@ -61,6 +61,7 @@
             this.txt_TT.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_TT.Location = new System.Drawing.Point(729, 140);
             this.txt_TT.Name = "txt_TT";
+            this.txt_TT.ReadOnly = true;
             this.txt_TT.Size = new System.Drawing.Size(196, 34);
             this.txt_TT.TabIndex = 6;
             // 
@@ -150,6 +151,16 @@
             this.panel_btn.Name = "panel_btn";
             this.panel_btn.Size = new System.Drawing.Size(869, 72);
             this.panel_btn.TabIndex = 13;
+            // 
+            // btn_XuatFile
+            // 
+            this.btn_XuatFile.Location = new System.Drawing.Point(721, 3);
+            this.btn_XuatFile.Name = "btn_XuatFile";
+            this.btn_XuatFile.Size = new System.Drawing.Size(110, 48);
+            this.btn_XuatFile.TabIndex = 11;
+            this.btn_XuatFile.Text = "Xuất File Excel";
+            this.btn_XuatFile.UseVisualStyleBackColor = true;
+            this.btn_XuatFile.Click += new System.EventHandler(this.btn_XuatFile_Click);
             // 
             // btn_ChiTiet
             // 
@@ -253,16 +264,6 @@
             // errHDB
             // 
             this.errHDB.ContainerControl = this;
-            // 
-            // btn_XuatFile
-            // 
-            this.btn_XuatFile.Location = new System.Drawing.Point(721, 3);
-            this.btn_XuatFile.Name = "btn_XuatFile";
-            this.btn_XuatFile.Size = new System.Drawing.Size(110, 48);
-            this.btn_XuatFile.TabIndex = 11;
-            this.btn_XuatFile.Text = "Xuất File Excel";
-            this.btn_XuatFile.UseVisualStyleBackColor = true;
-            this.btn_XuatFile.Click += new System.EventHandler(this.btn_XuatFile_Click);
             // 
             // fHDN
             // 

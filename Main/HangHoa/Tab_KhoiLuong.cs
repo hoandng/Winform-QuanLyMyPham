@@ -12,8 +12,8 @@ namespace Main.HangHoa
     {
         private void Load_KhoiLuong()
         {
-            string querry = "Select * from [KhoiLuong]";
-            DataTable dt = _data.ExecuteQuery("Select * from [KhoiLuong]");
+            string query = "Select * from [KhoiLuong]";
+            DataTable dt = _data.ExecuteQuery(query);
             dtg_KhoiLuong.DataSource = dt;
             dtg_KhoiLuong.Columns[0].HeaderText = "Mã Khối lượng";
             dtg_KhoiLuong.Columns[1].HeaderText = "Tên Khối lượng";

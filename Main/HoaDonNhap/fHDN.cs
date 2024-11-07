@@ -40,6 +40,7 @@ namespace Main.HoaDonNhap
             DataTable dataTable = _data.ExecuteQuery(querry);
             dgv_HDN.DataSource = dataTable;
 
+            dgv_HDN.Columns["TongTien"].DefaultCellStyle.Format = "C0";
             dgv_HDN.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataTable.Dispose();
         }

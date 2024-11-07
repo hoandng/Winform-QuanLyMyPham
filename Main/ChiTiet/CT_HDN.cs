@@ -52,7 +52,7 @@ namespace Main.ChiTiet
                 MessageBox.Show("Không tìm thấy hóa đơn.");
             }
 
-
+            Load_CTHDN();
             fill_HangHoa();
             resetValue();
             enableControls(false);
@@ -62,13 +62,13 @@ namespace Main.ChiTiet
 
         private void resetValue()
         {
-            cb_MaHang.Text = string.Empty;
-            txt_TenHang.Text = string.Empty;
-            txt_SL.Text = string.Empty;
-            txt_DonGia.Text = string.Empty;
-            txt_GiamGia.Text = string.Empty;
-            txt_ThanhTien.Text = string.Empty;
-            lb_TrangThai.Text = string.Empty;
+            cb_MaHang.Text = "";
+            txt_TenHang.Text = "";
+            txt_SL.Text = "1";
+            txt_DonGia.Text = "";
+            txt_GiamGia.Text = "0";
+            txt_ThanhTien.Text = "";
+            lb_TrangThai.Text = "";
         }
 
         private void enableControls(bool enable)
@@ -81,7 +81,7 @@ namespace Main.ChiTiet
             btn_Huy.Enabled = enable;
         }
 
-        private void Load_CTHDB()
+        private void Load_CTHDN()
         {
             string querry = "Select * From [ChiTietHDN] Where SoHDN = @sohdn";
             var parameters = new Dictionary<string, object>{
@@ -89,6 +89,7 @@ namespace Main.ChiTiet
             };
             DataTable dataTable = _data.ExecuteQuery(querry, parameters);
             dgv_ChiTiet.DataSource = dataTable;
+            dgv_ChiTiet.Columns["ThanhTien"].DefaultCellStyle.Format = "C0";
 
             dgv_ChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataTable.Dispose();
@@ -96,7 +97,7 @@ namespace Main.ChiTiet
 
         private void fill_HangHoa()
         {
-            string query = "SELECT MaHang, TenHang, DonGiaBan FROM [HangHoa]";
+            string query = "SELECT MaHang, TenHang, DonGiaNhap FROM [HangHoa]";
             DataTable dataTable = _data.ExecuteQuery(query);
 
             cb_MaHang.DataSource = dataTable;
@@ -114,14 +115,33 @@ namespace Main.ChiTiet
                 if (selectedRow != null)
                 {
                     txt_TenHang.Text = selectedRow["TenHang"].ToString(); // Hiển thị tên hàng tương ứng
-                    txt_DonGia.Text = selectedRow["DonGiaBan"].ToString(); // Hiển thị giá bán tương ứng
+                    txt_DonGia.Text = selectedRow["DonGiaNhap"].ToString(); // Hiển thị giá bán tương ứng
                 }
             }
+        }
+
+        private void UpdateTongTien_HDN()
+        {
+            string query = @"
+            UPDATE [HoaDonNhap]
+            SET TongTien = (
+                SELECT SUM(ThanhTien) 
+                FROM [ChiTietHDN] cthd
+                WHERE cthd.SoHDN = @sohdn
+            )
+            WHERE SoHDN = @sohdn";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@sohdn", CTHD_SoHDN },
+            };
+            _data.ExecuteQuery(query, parameters);
         }
 
         private void btn_Them_Click(object sender, EventArgs e)
         {
             enableControls(true);
+            resetValue();
             lb_TrangThai.Text = "Bạn đang ở chế độ Thêm";
             btn_Sua.Enabled = false;
             btn_Xoa.Enabled = false;
@@ -131,6 +151,7 @@ namespace Main.ChiTiet
         {
             enableControls(true);
             lb_TrangThai.Text = "Bạn đang ở chế độ Sửa";
+            cb_MaHang.Enabled = false;
             btn_Them.Enabled = false;
             btn_Xoa.Enabled = false;
         }
@@ -141,6 +162,8 @@ namespace Main.ChiTiet
             lb_TrangThai.Text = "Bạn đang ở chế độ Xoá";
             btn_Sua.Enabled = false;
             btn_Them.Enabled = false;
+            btn_Luu.Enabled = true;
+            btn_Huy.Enabled = true;
         }
 
         private void btn_Thoat_Click(object sender, EventArgs e)
@@ -184,10 +207,12 @@ namespace Main.ChiTiet
             if (btn_Them.Enabled == true)
             {
 
-                sql = $"Select Count(*) From [CHiTietHDN] Where SoHDN = @sohdN;";
+                sql = $"Select Count(*) From [CHiTietHDN] Where SoHDN = @sohdn And MaHang = @mahang;";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
+                    {"@mahang", mahang},
+
                 };
                 int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
                 if (count > 0)
@@ -195,10 +220,11 @@ namespace Main.ChiTiet
                     MessageBox.Show($"Đã tồn tại Hàng hoá với mã {mahang} tại hoá đơn {CTHD_SoHDN}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
-                sql = "INSERT INTO [ChiTietHDN] (MaHang, SoLuong, GiamGia, ThanhTien)";
-                sql += $"VALUES(@mahang, @soluong, @giamgia, @thanhtien);";
+                sql = "INSERT INTO [ChiTietHDN] (SoHDN, MaHang, SoLuong, GiamGia, ThanhTien)";
+                sql += $"VALUES(@sohdn, @mahang, @soluong, @giamgia, @thanhtien);";
                 parameters = new Dictionary<string, object>
                 {
+                    {"@sohdn", CTHD_SoHDN},
                     {"@mahang", mahang},
                     {"@soluong", sl},
                     {"@giamgia", giamgia},
@@ -229,7 +255,7 @@ namespace Main.ChiTiet
             //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
             if (btn_Xoa.Enabled == true)
             {
-                sql = $"Delete From [ChiTietHDB] Where SoHDN = @sohdn And MaHang = @mahang";
+                sql = $"Delete From [ChiTietHDN] Where SoHDN = @sohdn And MaHang = @mahang";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
@@ -239,7 +265,8 @@ namespace Main.ChiTiet
                 _data.ExecuteNonQuery(sql, parameters);
             }
 
-            Load_CTHDB();
+            Load_CTHDN();
+            UpdateTongTien_HDN();
 
             resetValue();
             enableControls(false);
@@ -254,6 +281,7 @@ namespace Main.ChiTiet
             resetValue();
             enableControls(false);
             lb_TrangThai.Text = "";
+            btn_Them.Enabled = true;
             btn_Sua.Enabled = false;
             btn_Xoa.Enabled = false;
         }
@@ -262,41 +290,81 @@ namespace Main.ChiTiet
         {
             string sl = txt_SL.Text;
             string giamgia = txt_GiamGia.Text;
-            string thanhtien = txt_ThanhTien.Text;
             string dongia = txt_DonGia.Text;
-            //Kiểm tra dữ liệu số lượng
+
+            // Kiểm tra dữ liệu số lượng
             int quantity;
-            if (!int.TryParse(sl, out quantity))
+            if (!int.TryParse(sl, out quantity) || quantity <= 0)
             {
-                errChiTiet.SetError(txt_SL, "Số Lượng phải là một số");
+                errChiTiet.SetError(txt_SL, "Số lượng phải là một số nguyên dương");
                 return;
             }
             else
             {
-                errChiTiet.Clear();
+                errChiTiet.SetError(txt_SL, "");
             }
 
-            //Kiểm tra giảm giá
+            // Kiểm tra đơn giá
+            int price;
+            if (!int.TryParse(dongia, out price) || price <= 0)
+            {
+                errChiTiet.SetError(txt_DonGia, "Đơn giá phải là một số dương");
+                return;
+            }
+            else
+            {
+                errChiTiet.SetError(txt_DonGia, "");
+            }
+
+            // Kiểm tra giảm giá
             int discount;
             if (giamgia.Trim().Length > 0)
             {
-                if (!int.TryParse(giamgia, out discount))
+                if (!int.TryParse(giamgia, out discount) || discount < 0 || discount > 100)
                 {
-                    errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số");
+                    errChiTiet.SetError(txt_GiamGia, "Giảm giá phải là một số từ 0 đến 100");
                     return;
                 }
                 else
                 {
-                    errChiTiet.Clear();
+                    errChiTiet.SetError(txt_GiamGia, "");
                 }
             }
             else
             {
                 discount = 0;
             }
-            int price = Convert.ToInt32(dongia);
-            int total = price * quantity * (100 - discount) / 100;
-            txt_ThanhTien.Text = total.ToString();
+
+            // Tính tổng tiền
+            try
+            {
+                int total = Math.Abs(price * quantity * (100 - discount) / 100);
+                txt_ThanhTien.Text = total.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void dgv_ChiTiet_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                enableControls(false);
+                btn_Them.Enabled = true;
+                btn_Sua.Enabled = true;
+                btn_Xoa.Enabled = true;
+                DataGridViewRow row = dgv_ChiTiet.Rows[e.RowIndex];
+                cb_MaHang.Text = row.Cells["MaHang"].Value.ToString();
+                txt_SL.Text = row.Cells["SoLuong"].Value.ToString();
+                txt_GiamGia.Text = row.Cells["GiamGia"].Value.ToString();
+                txt_ThanhTien.Text = row.Cells["ThanhTien"].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

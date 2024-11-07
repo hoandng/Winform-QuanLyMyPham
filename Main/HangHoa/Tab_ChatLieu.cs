@@ -144,8 +144,6 @@ namespace Main.HangHoa
 
         private void btn_CL_Luu_Click(object sender, EventArgs e)
         {
-            string sql = "";
-
             string ma = txt_MCL.Text;
             string ten = txt_TCL.Text;
 

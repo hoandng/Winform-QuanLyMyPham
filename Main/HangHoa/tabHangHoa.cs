@@ -18,15 +18,26 @@ namespace Main.HangHoa
             DataTable dtHangHoa = _data.ExecuteQuery(querry);
             dtg_HangHoa.DataSource = dtHangHoa;
 
+            dtg_HangHoa.Columns["colGiaBan"].DefaultCellStyle.Format = "C0";
+            dtg_HangHoa.Columns["colGiaNhap"].DefaultCellStyle.Format = "C0";
             dtg_HangHoa.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             
 
             dtg_HangHoa.VirtualMode = true;
-            dtg_HangHoa.BackgroundColor = Color.LightBlue;
             dtHangHoa.Dispose();
         }
         private void tp_HangHoa_Enter(object sender, EventArgs e)
         {
+            Load_HangHoa();
+            Enable_HangHoa(false);
+            ResetValueTextBox_HangHoa();
+            Enable_HangHoa(false);
+            btn_HH_Them.Enabled = true;
+            btn_HH_Sua.Enabled = false;
+            btn_HH_Xoa.Enabled = false;
+
+            lb_HH_TrangThai.Text = "";
+
             // Đổ dữ liệu vào Combobox
             fill_ChatLieu();
             fill_CongDung();
@@ -37,15 +48,6 @@ namespace Main.HangHoa
             fill_NuocSX();
             fill_HangSX();
 
-            Load_HangHoa();
-            Enable_HangHoa(false);
-            ResetValueTextBox_HangHoa();
-            Enable_HangHoa(false);
-            btn_HH_Them.Enabled = true;
-            btn_HH_Sua.Enabled = false;
-            btn_HH_Xoa.Enabled = false;
-
-            lb_HH_TrangThai.Text = "";
 
             //ClearDataGrid(dtg_HangHoa);
         }

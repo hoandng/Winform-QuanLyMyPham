@@ -39,6 +39,7 @@ namespace Main.HoaDonBan
             DataTable dataTable = _data.ExecuteQuery(querry);
             dgv_HDB.DataSource = dataTable;
 
+            dgv_HDB.Columns["TongTien"].DefaultCellStyle.Format = "C0";
             dgv_HDB.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataTable.Dispose();
         }

@@ -34,6 +34,22 @@
             this.tp_HangHoa = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dtg_HangHoa = new System.Windows.Forms.DataGridView();
+            this.colMaHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTenHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHangSX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNuocSX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colKhoiLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colChatLieu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMau = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMua = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCongDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBaoHanh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_buttons = new System.Windows.Forms.Panel();
             this.btn_HH_Xoa = new System.Windows.Forms.Button();
             this.btn_HH_Sua = new System.Windows.Forms.Button();
@@ -191,22 +207,6 @@
             this.txt_MMua = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
-            this.colMaHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTenHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHangSX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNuocSX = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colKhoiLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colChatLieu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMau = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMua = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCongDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBaoHanh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errHangHoa)).BeginInit();
             this.tabControl_HangHoa.SuspendLayout();
             this.tp_HangHoa.SuspendLayout();
@@ -326,6 +326,150 @@
             this.dtg_HangHoa.Size = new System.Drawing.Size(1198, 166);
             this.dtg_HangHoa.TabIndex = 35;
             this.dtg_HangHoa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtg_HangHoa_CellClick);
+            // 
+            // colMaHang
+            // 
+            this.colMaHang.DataPropertyName = "MaHang";
+            this.colMaHang.HeaderText = "Mã Hàng";
+            this.colMaHang.MinimumWidth = 6;
+            this.colMaHang.Name = "colMaHang";
+            this.colMaHang.ReadOnly = true;
+            this.colMaHang.Width = 125;
+            // 
+            // colTenHang
+            // 
+            this.colTenHang.DataPropertyName = "TenHang";
+            this.colTenHang.HeaderText = "Tên Hàng";
+            this.colTenHang.MinimumWidth = 6;
+            this.colTenHang.Name = "colTenHang";
+            this.colTenHang.ReadOnly = true;
+            this.colTenHang.Width = 125;
+            // 
+            // colLoai
+            // 
+            this.colLoai.DataPropertyName = "MaLoai";
+            this.colLoai.HeaderText = "Mã Loại";
+            this.colLoai.MinimumWidth = 6;
+            this.colLoai.Name = "colLoai";
+            this.colLoai.ReadOnly = true;
+            this.colLoai.Width = 125;
+            // 
+            // colHangSX
+            // 
+            this.colHangSX.DataPropertyName = "MaHangSX";
+            this.colHangSX.HeaderText = "Hãng SX";
+            this.colHangSX.MinimumWidth = 6;
+            this.colHangSX.Name = "colHangSX";
+            this.colHangSX.ReadOnly = true;
+            this.colHangSX.Width = 125;
+            // 
+            // colNuocSX
+            // 
+            this.colNuocSX.DataPropertyName = "MaNuocSX";
+            this.colNuocSX.HeaderText = "Nước SX";
+            this.colNuocSX.MinimumWidth = 6;
+            this.colNuocSX.Name = "colNuocSX";
+            this.colNuocSX.ReadOnly = true;
+            this.colNuocSX.Width = 125;
+            // 
+            // colKhoiLuong
+            // 
+            this.colKhoiLuong.DataPropertyName = "MaKhoiLuong";
+            this.colKhoiLuong.HeaderText = "Khối Lượng";
+            this.colKhoiLuong.MinimumWidth = 6;
+            this.colKhoiLuong.Name = "colKhoiLuong";
+            this.colKhoiLuong.ReadOnly = true;
+            this.colKhoiLuong.Width = 125;
+            // 
+            // colChatLieu
+            // 
+            this.colChatLieu.DataPropertyName = "MaChatLieu";
+            this.colChatLieu.HeaderText = "Chất Liệu";
+            this.colChatLieu.MinimumWidth = 6;
+            this.colChatLieu.Name = "colChatLieu";
+            this.colChatLieu.ReadOnly = true;
+            this.colChatLieu.Width = 125;
+            // 
+            // colMau
+            // 
+            this.colMau.DataPropertyName = "MaMau";
+            this.colMau.HeaderText = "Màu";
+            this.colMau.MinimumWidth = 6;
+            this.colMau.Name = "colMau";
+            this.colMau.ReadOnly = true;
+            this.colMau.Width = 125;
+            // 
+            // colMua
+            // 
+            this.colMua.DataPropertyName = "MaMua";
+            this.colMua.HeaderText = "Mùa";
+            this.colMua.MinimumWidth = 6;
+            this.colMua.Name = "colMua";
+            this.colMua.ReadOnly = true;
+            this.colMua.Width = 125;
+            // 
+            // colCongDung
+            // 
+            this.colCongDung.DataPropertyName = "MaCongDung";
+            this.colCongDung.HeaderText = "Công Dụng";
+            this.colCongDung.MinimumWidth = 6;
+            this.colCongDung.Name = "colCongDung";
+            this.colCongDung.ReadOnly = true;
+            this.colCongDung.Width = 125;
+            // 
+            // colSoLuong
+            // 
+            this.colSoLuong.DataPropertyName = "SoLuong";
+            this.colSoLuong.HeaderText = "Số lượng";
+            this.colSoLuong.MinimumWidth = 6;
+            this.colSoLuong.Name = "colSoLuong";
+            this.colSoLuong.ReadOnly = true;
+            this.colSoLuong.Width = 125;
+            // 
+            // colGiaNhap
+            // 
+            this.colGiaNhap.DataPropertyName = "DonGiaNhap";
+            this.colGiaNhap.HeaderText = "Giá nhập";
+            this.colGiaNhap.MinimumWidth = 6;
+            this.colGiaNhap.Name = "colGiaNhap";
+            this.colGiaNhap.ReadOnly = true;
+            this.colGiaNhap.Width = 125;
+            // 
+            // colGiaBan
+            // 
+            this.colGiaBan.DataPropertyName = "DonGiaBan";
+            this.colGiaBan.HeaderText = "Giá bán";
+            this.colGiaBan.MinimumWidth = 6;
+            this.colGiaBan.Name = "colGiaBan";
+            this.colGiaBan.ReadOnly = true;
+            this.colGiaBan.Width = 125;
+            // 
+            // colBaoHanh
+            // 
+            this.colBaoHanh.DataPropertyName = "ThoiGianBaoHanh";
+            this.colBaoHanh.HeaderText = "Bảo Hành";
+            this.colBaoHanh.MinimumWidth = 6;
+            this.colBaoHanh.Name = "colBaoHanh";
+            this.colBaoHanh.ReadOnly = true;
+            this.colBaoHanh.Width = 125;
+            // 
+            // colGhiChu
+            // 
+            this.colGhiChu.DataPropertyName = "GhiChu";
+            this.colGhiChu.HeaderText = "Ghi chú";
+            this.colGhiChu.MinimumWidth = 6;
+            this.colGhiChu.Name = "colGhiChu";
+            this.colGhiChu.ReadOnly = true;
+            this.colGhiChu.Width = 125;
+            // 
+            // colAnh
+            // 
+            this.colAnh.DataPropertyName = "Anh";
+            this.colAnh.HeaderText = "Ảnh";
+            this.colAnh.MinimumWidth = 6;
+            this.colAnh.Name = "colAnh";
+            this.colAnh.ReadOnly = true;
+            this.colAnh.Width = 125;
             // 
             // panel_buttons
             // 
@@ -2000,150 +2144,6 @@
             this.label40.Size = new System.Drawing.Size(83, 25);
             this.label40.TabIndex = 34;
             this.label40.Text = "Mã mùa";
-            // 
-            // colMaHang
-            // 
-            this.colMaHang.DataPropertyName = "MaHang";
-            this.colMaHang.HeaderText = "Mã Hàng";
-            this.colMaHang.MinimumWidth = 6;
-            this.colMaHang.Name = "colMaHang";
-            this.colMaHang.ReadOnly = true;
-            this.colMaHang.Width = 125;
-            // 
-            // colTenHang
-            // 
-            this.colTenHang.DataPropertyName = "TenHang";
-            this.colTenHang.HeaderText = "Tên Hàng";
-            this.colTenHang.MinimumWidth = 6;
-            this.colTenHang.Name = "colTenHang";
-            this.colTenHang.ReadOnly = true;
-            this.colTenHang.Width = 125;
-            // 
-            // colLoai
-            // 
-            this.colLoai.DataPropertyName = "MaLoai";
-            this.colLoai.HeaderText = "Mã Loại";
-            this.colLoai.MinimumWidth = 6;
-            this.colLoai.Name = "colLoai";
-            this.colLoai.ReadOnly = true;
-            this.colLoai.Width = 125;
-            // 
-            // colHangSX
-            // 
-            this.colHangSX.DataPropertyName = "MaHangSX";
-            this.colHangSX.HeaderText = "Hãng SX";
-            this.colHangSX.MinimumWidth = 6;
-            this.colHangSX.Name = "colHangSX";
-            this.colHangSX.ReadOnly = true;
-            this.colHangSX.Width = 125;
-            // 
-            // colNuocSX
-            // 
-            this.colNuocSX.DataPropertyName = "MaNuocSX";
-            this.colNuocSX.HeaderText = "Nước SX";
-            this.colNuocSX.MinimumWidth = 6;
-            this.colNuocSX.Name = "colNuocSX";
-            this.colNuocSX.ReadOnly = true;
-            this.colNuocSX.Width = 125;
-            // 
-            // colKhoiLuong
-            // 
-            this.colKhoiLuong.DataPropertyName = "MaKhoiLuong";
-            this.colKhoiLuong.HeaderText = "Khối Lượng";
-            this.colKhoiLuong.MinimumWidth = 6;
-            this.colKhoiLuong.Name = "colKhoiLuong";
-            this.colKhoiLuong.ReadOnly = true;
-            this.colKhoiLuong.Width = 125;
-            // 
-            // colChatLieu
-            // 
-            this.colChatLieu.DataPropertyName = "MaChatLieu";
-            this.colChatLieu.HeaderText = "Chất Liệu";
-            this.colChatLieu.MinimumWidth = 6;
-            this.colChatLieu.Name = "colChatLieu";
-            this.colChatLieu.ReadOnly = true;
-            this.colChatLieu.Width = 125;
-            // 
-            // colMau
-            // 
-            this.colMau.DataPropertyName = "MaMau";
-            this.colMau.HeaderText = "Màu";
-            this.colMau.MinimumWidth = 6;
-            this.colMau.Name = "colMau";
-            this.colMau.ReadOnly = true;
-            this.colMau.Width = 125;
-            // 
-            // colMua
-            // 
-            this.colMua.DataPropertyName = "MaMua";
-            this.colMua.HeaderText = "Mùa";
-            this.colMua.MinimumWidth = 6;
-            this.colMua.Name = "colMua";
-            this.colMua.ReadOnly = true;
-            this.colMua.Width = 125;
-            // 
-            // colCongDung
-            // 
-            this.colCongDung.DataPropertyName = "MaCongDung";
-            this.colCongDung.HeaderText = "Công Dụng";
-            this.colCongDung.MinimumWidth = 6;
-            this.colCongDung.Name = "colCongDung";
-            this.colCongDung.ReadOnly = true;
-            this.colCongDung.Width = 125;
-            // 
-            // colSoLuong
-            // 
-            this.colSoLuong.DataPropertyName = "SoLuong";
-            this.colSoLuong.HeaderText = "Số lượng";
-            this.colSoLuong.MinimumWidth = 6;
-            this.colSoLuong.Name = "colSoLuong";
-            this.colSoLuong.ReadOnly = true;
-            this.colSoLuong.Width = 125;
-            // 
-            // colGiaNhap
-            // 
-            this.colGiaNhap.DataPropertyName = "DonGiaNhap";
-            this.colGiaNhap.HeaderText = "Giá nhập";
-            this.colGiaNhap.MinimumWidth = 6;
-            this.colGiaNhap.Name = "colGiaNhap";
-            this.colGiaNhap.ReadOnly = true;
-            this.colGiaNhap.Width = 125;
-            // 
-            // colGiaBan
-            // 
-            this.colGiaBan.DataPropertyName = "DonGiaBan";
-            this.colGiaBan.HeaderText = "Giá bán";
-            this.colGiaBan.MinimumWidth = 6;
-            this.colGiaBan.Name = "colGiaBan";
-            this.colGiaBan.ReadOnly = true;
-            this.colGiaBan.Width = 125;
-            // 
-            // colBaoHanh
-            // 
-            this.colBaoHanh.DataPropertyName = "ThoiGianBaoHanh";
-            this.colBaoHanh.HeaderText = "Bảo Hành";
-            this.colBaoHanh.MinimumWidth = 6;
-            this.colBaoHanh.Name = "colBaoHanh";
-            this.colBaoHanh.ReadOnly = true;
-            this.colBaoHanh.Width = 125;
-            // 
-            // colGhiChu
-            // 
-            this.colGhiChu.DataPropertyName = "GhiChu";
-            this.colGhiChu.HeaderText = "Ghi chú";
-            this.colGhiChu.MinimumWidth = 6;
-            this.colGhiChu.Name = "colGhiChu";
-            this.colGhiChu.ReadOnly = true;
-            this.colGhiChu.Width = 125;
-            // 
-            // colAnh
-            // 
-            this.colAnh.DataPropertyName = "Anh";
-            this.colAnh.HeaderText = "Ảnh";
-            this.colAnh.MinimumWidth = 6;
-            this.colAnh.Name = "colAnh";
-            this.colAnh.ReadOnly = true;
-            this.colAnh.Width = 125;
             // 
             // HangHoa
             // 

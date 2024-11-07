@@ -3,6 +3,7 @@ using Main.KhachHang;
 using Main.NhanVien;
 using Main.HoaDonBan;
 using Main.HoaDonNhap;
+using Main.ThongKe;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Main.NhaCungCap;
-
+using Login;
 namespace Main
 {
     public partial class fmain : Form
@@ -26,7 +27,7 @@ namespace Main
         }
         private void fmain_Load(object sender, EventArgs e)
         {
-             btn_HangHoa.PerformClick();
+             btn_ThongKe.PerformClick();
         }
 
         //Mở form khi click vào 1 button
@@ -105,7 +106,15 @@ namespace Main
 
         private void btn_ThongKe_Click(object sender, EventArgs e)
         {
+            ActivateButton(sender);
+            openChildForm(new ThongKe.ThongKe());
+        }
 
+        private void btn_DangXuat_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            fLogin dangnhap = new fLogin();
+            dangnhap.ShowDialog();
         }
     }
 }
