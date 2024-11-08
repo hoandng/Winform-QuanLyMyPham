@@ -171,10 +171,11 @@
             // cb_CongViec
             // 
             this.cb_CongViec.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cb_CongViec.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_CongViec.FormattingEnabled = true;
-            this.cb_CongViec.Location = new System.Drawing.Point(376, 191);
+            this.cb_CongViec.Location = new System.Drawing.Point(376, 190);
             this.cb_CongViec.Name = "cb_CongViec";
-            this.cb_CongViec.Size = new System.Drawing.Size(227, 24);
+            this.cb_CongViec.Size = new System.Drawing.Size(227, 28);
             this.cb_CongViec.TabIndex = 60;
             // 
             // lb_NV_TrangThai
@@ -214,36 +215,36 @@
             // cb_GioiTinh
             // 
             this.cb_GioiTinh.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cb_GioiTinh.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_GioiTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_GioiTinh.FormattingEnabled = true;
             this.cb_GioiTinh.Items.AddRange(new object[] {
             "Nam",
             "Nữ"});
-            this.cb_GioiTinh.Location = new System.Drawing.Point(376, 131);
+            this.cb_GioiTinh.Location = new System.Drawing.Point(376, 134);
             this.cb_GioiTinh.Name = "cb_GioiTinh";
-            this.cb_GioiTinh.Size = new System.Drawing.Size(228, 34);
+            this.cb_GioiTinh.Size = new System.Drawing.Size(228, 28);
             this.cb_GioiTinh.TabIndex = 18;
             // 
             // dtp_NgaySinh
             // 
             this.dtp_NgaySinh.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dtp_NgaySinh.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp_NgaySinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp_NgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtp_NgaySinh.Location = new System.Drawing.Point(761, 28);
+            this.dtp_NgaySinh.Location = new System.Drawing.Point(761, 27);
             this.dtp_NgaySinh.MaxDate = new System.DateTime(2500, 12, 31, 0, 0, 0, 0);
             this.dtp_NgaySinh.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dtp_NgaySinh.Name = "dtp_NgaySinh";
-            this.dtp_NgaySinh.Size = new System.Drawing.Size(228, 34);
+            this.dtp_NgaySinh.Size = new System.Drawing.Size(228, 27);
             this.dtp_NgaySinh.TabIndex = 20;
             // 
             // txt_DiaChi
             // 
             this.txt_DiaChi.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_DiaChi.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_DiaChi.Location = new System.Drawing.Point(761, 141);
+            this.txt_DiaChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_DiaChi.Location = new System.Drawing.Point(761, 136);
             this.txt_DiaChi.Multiline = true;
             this.txt_DiaChi.Name = "txt_DiaChi";
-            this.txt_DiaChi.Size = new System.Drawing.Size(229, 80);
+            this.txt_DiaChi.Size = new System.Drawing.Size(229, 82);
             this.txt_DiaChi.TabIndex = 23;
             // 
             // label10
@@ -251,7 +252,7 @@
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(656, 145);
+            this.label10.Location = new System.Drawing.Point(655, 136);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(71, 25);
             this.label10.TabIndex = 14;
@@ -260,10 +261,10 @@
             // txt_SDT
             // 
             this.txt_SDT.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_SDT.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_SDT.Location = new System.Drawing.Point(761, 84);
+            this.txt_SDT.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_SDT.Location = new System.Drawing.Point(761, 87);
             this.txt_SDT.Name = "txt_SDT";
-            this.txt_SDT.Size = new System.Drawing.Size(229, 34);
+            this.txt_SDT.Size = new System.Drawing.Size(229, 27);
             this.txt_SDT.TabIndex = 22;
             // 
             // label11
@@ -271,7 +272,7 @@
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(656, 88);
+            this.label11.Location = new System.Drawing.Point(655, 88);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 25);
             this.label11.TabIndex = 9;
@@ -282,7 +283,7 @@
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(656, 27);
+            this.label12.Location = new System.Drawing.Point(655, 28);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(99, 25);
             this.label12.TabIndex = 13;
@@ -313,10 +314,10 @@
             // txt_TenNV
             // 
             this.txt_TenNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_TenNV.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TenNV.Location = new System.Drawing.Point(376, 80);
+            this.txt_TenNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_TenNV.Location = new System.Drawing.Point(376, 87);
             this.txt_TenNV.Name = "txt_TenNV";
-            this.txt_TenNV.Size = new System.Drawing.Size(229, 34);
+            this.txt_TenNV.Size = new System.Drawing.Size(229, 27);
             this.txt_TenNV.TabIndex = 17;
             // 
             // label15
@@ -333,10 +334,10 @@
             // txt_MaNV
             // 
             this.txt_MaNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_MaNV.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_MaNV.Location = new System.Drawing.Point(376, 23);
+            this.txt_MaNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MaNV.Location = new System.Drawing.Point(376, 27);
             this.txt_MaNV.Name = "txt_MaNV";
-            this.txt_MaNV.Size = new System.Drawing.Size(229, 34);
+            this.txt_MaNV.Size = new System.Drawing.Size(229, 27);
             this.txt_MaNV.TabIndex = 16;
             // 
             // label16
@@ -510,19 +511,19 @@
             // txt_MucLuong
             // 
             this.txt_MucLuong.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_MucLuong.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MucLuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_MucLuong.Location = new System.Drawing.Point(511, 131);
             this.txt_MucLuong.Name = "txt_MucLuong";
-            this.txt_MucLuong.Size = new System.Drawing.Size(229, 34);
+            this.txt_MucLuong.Size = new System.Drawing.Size(229, 27);
             this.txt_MucLuong.TabIndex = 14;
             // 
             // txt_TCV
             // 
             this.txt_TCV.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_TCV.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_TCV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_TCV.Location = new System.Drawing.Point(511, 82);
             this.txt_TCV.Name = "txt_TCV";
-            this.txt_TCV.Size = new System.Drawing.Size(229, 34);
+            this.txt_TCV.Size = new System.Drawing.Size(229, 27);
             this.txt_TCV.TabIndex = 14;
             // 
             // label4
@@ -539,10 +540,10 @@
             // txt_MCV
             // 
             this.txt_MCV.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txt_MCV.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_MCV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_MCV.Location = new System.Drawing.Point(511, 29);
             this.txt_MCV.Name = "txt_MCV";
-            this.txt_MCV.Size = new System.Drawing.Size(229, 34);
+            this.txt_MCV.Size = new System.Drawing.Size(229, 27);
             this.txt_MCV.TabIndex = 15;
             // 
             // label2

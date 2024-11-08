@@ -85,7 +85,7 @@
             this.btn_DangXuat.Location = new System.Drawing.Point(0, 589);
             this.btn_DangXuat.Name = "btn_DangXuat";
             this.btn_DangXuat.Size = new System.Drawing.Size(212, 70);
-            this.btn_DangXuat.TabIndex = 8;
+            this.btn_DangXuat.TabIndex = 4;
             this.btn_DangXuat.Text = "Đăng Xuất";
             this.btn_DangXuat.UseVisualStyleBackColor = true;
             this.btn_DangXuat.Click += new System.EventHandler(this.btn_DangXuat_Click);
@@ -99,7 +99,7 @@
             this.brn_NhaCC.Location = new System.Drawing.Point(0, 423);
             this.brn_NhaCC.Name = "brn_NhaCC";
             this.brn_NhaCC.Size = new System.Drawing.Size(212, 70);
-            this.brn_NhaCC.TabIndex = 7;
+            this.brn_NhaCC.TabIndex = 3;
             this.brn_NhaCC.Text = "Nhà cung cấp";
             this.brn_NhaCC.UseVisualStyleBackColor = true;
             this.brn_NhaCC.Click += new System.EventHandler(this.brn_NhaCC_Click);
