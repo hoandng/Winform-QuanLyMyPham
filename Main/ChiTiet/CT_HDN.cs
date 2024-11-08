@@ -116,7 +116,7 @@ namespace Main.ChiTiet
                 if (selectedRow != null)
                 {
                     txt_TenHang.Text = selectedRow["TenHang"].ToString(); // Hiển thị tên hàng tương ứng
-                    txt_DonGia.Text = selectedRow["DonGiaNhap"].ToString(); // Hiển thị giá bán tương ứng
+                    txt_DonGia.Text = selectedRow["DonGiaNhap"].ToString(); // Hiển thị tên hàng tương ứng
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace Main.ChiTiet
             _data.ExecuteQuery(query, parameters);
         }
 
-        public void UpdateLatestPrice(string maHang)
+        private void UpdateLatestPrice(string maHang)
         {
             string sql = @"
             SELECT TOP 1 cthn.DonGia
@@ -172,7 +172,7 @@ namespace Main.ChiTiet
             }
         }
         
-        public void UpdateProductQuantity(string maHang, int quantityChange)
+        private void UpdateProductQuantity(string maHang, int quantityChange)
         {
             string query = @"
             UPDATE HangHoa
@@ -200,6 +200,7 @@ namespace Main.ChiTiet
         {
             enableControls(true);
             lb_TrangThai.Text = "Bạn đang ở chế độ Sửa";
+            cb_MaHang.Enabled = false;
             cb_MaHang.Enabled = false;
             btn_Them.Enabled = false;
             btn_Xoa.Enabled = false;
@@ -469,6 +470,7 @@ namespace Main.ChiTiet
                 txt_SL.Text = row.Cells["SoLuong"].Value.ToString();
                 txt_GiamGia.Text = row.Cells["GiamGia"].Value.ToString();
                 txt_ThanhTien.Text = row.Cells["ThanhTien"].Value.ToString();
+                txt_DonGia.Text = row.Cells["DonGia"].Value.ToString();
             }
             catch (Exception ex)
             {

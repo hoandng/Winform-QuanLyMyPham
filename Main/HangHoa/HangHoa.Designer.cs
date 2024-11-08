@@ -325,7 +325,6 @@
             this.tp_HangHoa.TabIndex = 0;
             this.tp_HangHoa.Text = "Hàng hoá";
             this.tp_HangHoa.Enter += new System.EventHandler(this.tp_HangHoa_Enter);
-            this.tp_HangHoa.Leave += new System.EventHandler(this.tp_HangHoa_Leave);
             // 
             // groupBox2
             // 
@@ -1009,7 +1008,7 @@
             // 
             // panel10
             // 
-            this.panel10.BackColor = System.Drawing.SystemColors.Window;
+            this.panel10.BackColor = System.Drawing.Color.Transparent;
             this.panel10.Controls.Add(this.label16);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel10.Location = new System.Drawing.Point(3, 3);

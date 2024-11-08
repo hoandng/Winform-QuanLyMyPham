@@ -136,9 +136,9 @@ namespace Main.NhaCungCap
                 errNCC.Clear();
             }
             int sodienthoai;
-            if (!int.TryParse(sdt, out sodienthoai))
+            if (!int.TryParse(sdt, out sodienthoai) || sodienthoai < 0)
             {
-                errNCC.SetError(txt_SDT, "Số điện thoại phải là một số");
+                errNCC.SetError(txt_SDT, "Số điện thoại phải là một số dương");
                 return;
             }
             else

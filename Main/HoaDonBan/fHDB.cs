@@ -73,7 +73,7 @@ namespace Main.HoaDonBan
             cb_MaNV.Text = "";
             dtp_NgayBan.Value = DateTime.Now;
             cb_MaKH.Text = "";
-            txt_TT.Text = "";
+            txt_TT.Text = "0";
         }
 
         private void enableControls(bool enable)

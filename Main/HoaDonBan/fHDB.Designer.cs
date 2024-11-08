@@ -320,6 +320,7 @@
             // 
             // cb_MaKH
             // 
+            this.cb_MaKH.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MaKH.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MaKH.FormattingEnabled = true;
             this.cb_MaKH.Location = new System.Drawing.Point(353, 171);
@@ -329,6 +330,7 @@
             // 
             // cb_MaNV
             // 
+            this.cb_MaNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MaNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MaNV.FormattingEnabled = true;
             this.cb_MaNV.Location = new System.Drawing.Point(353, 108);

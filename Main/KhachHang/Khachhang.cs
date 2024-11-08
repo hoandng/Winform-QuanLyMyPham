@@ -132,10 +132,21 @@ namespace Main.KhachHang
             {
                 errKhachHang.Clear();
             }
+
+            // Kiểm tra định dạng số điện thoại
             int sodienthoai;
-            if (!int.TryParse(sdt, out sodienthoai))
+            if (!int.TryParse(sdt, out sodienthoai) || sodienthoai < 0)
             {
-                errKhachHang.SetError(txt_SDT, "Số điện thoại phải là một số");
+                errKhachHang.SetError(txt_SDT, "Số điện thoại phải là một số dương");
+                return;
+            }
+            else
+            {
+                errKhachHang.Clear();
+            }
+            if (sdt.Length != 10)
+            {
+                errKhachHang.SetError(txt_SDT, "Số điện thoại phải là 10 số");
                 return;
             }
             else

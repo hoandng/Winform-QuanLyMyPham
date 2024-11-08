@@ -66,7 +66,7 @@ namespace Main.ThongKe
             cb_Nam.DisplayMember = "NAM"; // Tên cột hiển thị
             cb_Nam.ValueMember = "NAM";
         }
-        private void cb_Năm_SelectedIndexChanged(object sender, EventArgs e)
+        private void cb_Nam_SelectedIndexChanged(object sender, EventArgs e)
         {
             int? nam = cb_Nam.SelectedValue as int?;
             Load_DoanhThu(nam);

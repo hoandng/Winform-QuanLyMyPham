@@ -229,6 +229,7 @@
             // 
             // lb_TrangThai
             // 
+            this.lb_TrangThai.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lb_TrangThai.AutoSize = true;
             this.lb_TrangThai.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_TrangThai.ForeColor = System.Drawing.Color.Red;
@@ -320,6 +321,7 @@
             // 
             // cb_MaNCC
             // 
+            this.cb_MaNCC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MaNCC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MaNCC.FormattingEnabled = true;
             this.cb_MaNCC.Location = new System.Drawing.Point(361, 148);
@@ -329,6 +331,7 @@
             // 
             // cb_MaNV
             // 
+            this.cb_MaNV.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cb_MaNV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_MaNV.FormattingEnabled = true;
             this.cb_MaNV.Location = new System.Drawing.Point(361, 91);

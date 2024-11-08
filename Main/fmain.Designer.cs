@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmain));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pannel_menu_btn = new System.Windows.Forms.Panel();
             this.btn_DangXuat = new System.Windows.Forms.Button();
@@ -209,7 +208,7 @@
             // pb_TaiKhoan
             // 
             this.pb_TaiKhoan.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pb_TaiKhoan.Image = ((System.Drawing.Image)(resources.GetObject("pb_TaiKhoan.Image")));
+            this.pb_TaiKhoan.Image = global::Main.Properties.Resources.user;
             this.pb_TaiKhoan.Location = new System.Drawing.Point(45, 27);
             this.pb_TaiKhoan.Name = "pb_TaiKhoan";
             this.pb_TaiKhoan.Size = new System.Drawing.Size(120, 120);

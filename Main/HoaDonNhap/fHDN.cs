@@ -74,7 +74,7 @@ namespace Main.HoaDonNhap
             cb_MaNV.Text = "";
             dtp_NgayNhap.Value = DateTime.Now;
             cb_MaNCC.Text = "";
-            txt_TT.Text = "";
+            txt_TT.Text = "0";
         }
 
         private void enableControls(bool enable)
@@ -149,24 +149,14 @@ namespace Main.HoaDonNhap
             string sql = "";
 
             string sohdn = txt_SoHDN.Text;
-            string manv = cb_MaNV.Text;
-            string mancc = cb_MaNCC.Text;
+            string manv = cb_MaNV.SelectedValue.ToString();
+            string mancc = cb_MaNCC.SelectedValue.ToString();
             string ngaynhap = dtp_NgayNhap.Value.ToString("MM/dd/yyyy");
             string tongtien = txt_TT.Text;
             //Kiểm tra dữ liêu
             if (sohdn.Trim() == "")
             {
                 errHDB.SetError(txt_SoHDN, "Mã không được để trống");
-                return;
-            }
-            else
-            {
-                errHDB.Clear();
-            }
-            int total;
-            if (!int.TryParse(tongtien, out total))
-            {
-                errHDB.SetError(txt_TT, "Tổng tiền phải là một số");
                 return;
             }
             else

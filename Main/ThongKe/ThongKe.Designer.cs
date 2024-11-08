@@ -112,7 +112,7 @@
             this.cb_Nam.Name = "cb_Nam";
             this.cb_Nam.Size = new System.Drawing.Size(229, 28);
             this.cb_Nam.TabIndex = 1;
-            this.cb_Nam.SelectedIndexChanged += new System.EventHandler(this.cb_Năm_SelectedIndexChanged);
+            this.cb_Nam.SelectedIndexChanged += new System.EventHandler(this.cb_Nam_SelectedIndexChanged);
             // 
             // dgv_DoanhThu
             // 

@@ -133,13 +133,7 @@ namespace Main.HangHoa
             cb_Hang.DisplayMember = "TenHangSX"; // Tên cột hiển thị
             cb_Hang.ValueMember = "MaHangSX";     // Tên cột giá trị
         }
-        
-        private void tp_HangHoa_Leave(object sender, EventArgs e)
-        {
-
-
-        }
-        
+                
         private void Enable_HangHoa(Boolean hien)
         {
             txt_MaHang.Enabled = hien;
@@ -175,11 +169,11 @@ namespace Main.HangHoa
             cb_CL.Text = "";
             cb_CD.Text = "";
             cb_NuocSX.Text = "";
-            txt_SL.Text = "";
+            txt_SL.Text = "1";
             cb_Mua.Text = "";
             txt_BH.Text = "";
-            txt_GiaBan.Text = "";
-            txt_GiaNhap.Text = "";
+            txt_GiaBan.Text = "0";
+            txt_GiaNhap.Text = "0";
             txt_GhiChu.Text = "";
             pictureBox_AnhSP.ImageLocation = "";
         }
@@ -273,15 +267,6 @@ namespace Main.HangHoa
             if (!decimal.TryParse(giaban, out hdb))
             {
                 errHangHoa.SetError(txt_GiaBan, "Giá bán phải là một số!");
-                return;
-            }
-            else
-            {
-                errHangHoa.Clear();
-            }
-            if (!decimal.TryParse(gianhap, out hdn))
-            {
-                errHangHoa.SetError(txt_GiaNhap, "Giá nhập phải là một số!");
                 return;
             }
             else
@@ -493,10 +478,5 @@ namespace Main.HangHoa
             dtHangHoa.Dispose();
         }
 
-        private void ClearDataGrid(DataGridView gridView)
-        {
-            gridView.DataSource = null;
-            gridView.Rows.Clear();
-        }
     }
 }

@@ -111,10 +111,18 @@ namespace Main.NhanVien
 
         private void btn_NV_Xoa_Click(object sender, EventArgs e)
         {
-            enableControl(false);
-            btn_NV_Them.Enabled = false;
-            btn_NV_Sua.Enabled = false;
-            lb_NV_TrangThai.Text = "*Bạn đang ở chế độ Xoá!";
+            if (MessageBox.Show("Bạn có chắc chắn xóa Công việc có mã la " + txt_MaNV.Text +
+               " không ? Nếu có ấn nút Lưu, không Thì ấn nút Hủy", "Thông báo!",
+                MessageBoxButtons.OK) == DialogResult.OK)
+            {
+                enableControl(false);
+                btn_NV_Luu.Enabled = true;
+                btn_NV_Huy.Enabled = true;
+                btn_NV_Them.Enabled = false;
+                btn_NV_Sua.Enabled = false;
+                lb_NV_TrangThai.Text = "*Bạn đang ở chế độ Xoá!";
+            }
+           
         }
 
         private void btn_NV_Luu_Click(object sender, EventArgs e)
@@ -176,9 +184,9 @@ namespace Main.NhanVien
 
             // Kiểm tra định dạng số điện thoại
             int sodienthoai;
-            if (!int.TryParse(sdt, out sodienthoai))
+            if (!int.TryParse(sdt, out sodienthoai) || sodienthoai < 0)
             {
-                errNhanVien.SetError(txt_SDT, "Số điện thoại phải là một số");
+                errNhanVien.SetError(txt_SDT, "Số điện thoại phải là một số dương");
                 return;
             }
             else
@@ -266,12 +274,12 @@ namespace Main.NhanVien
 
         private void btn_NV_Huy_Click(object sender, EventArgs e)
         {
+            resetTextBox();
+            enableControl(false);
             lb_NV_TrangThai.Text = "";
             btn_NV_Xoa.Enabled = false;
             btn_NV_Sua.Enabled = false;
             btn_NV_Them.Enabled = true;
-            resetTextBox();
-            enableControl(false);
         }
 
     }

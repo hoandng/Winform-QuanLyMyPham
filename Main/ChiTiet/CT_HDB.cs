@@ -257,7 +257,7 @@ namespace Main.ChiTiet
                 // Kiểm tra số lượng tồn kho
                 if (!IsQuantityAvailable(mahang, quantity))
                 {
-                    MessageBox.Show("Số lượng mặt hàng không đủ trong kho.");
+                    errChiTiet.SetError(txt_SL, "Số lượng mặt hàng không đủ trong kho.");
                     return;
                 }
 
@@ -297,7 +297,7 @@ namespace Main.ChiTiet
                 // Nếu số lượng mới yêu cầu nhiều hơn, kiểm tra số lượng tồn kho
                 if (quantityDifference > 0 && !IsQuantityAvailable(mahang, quantityDifference))
                 {
-                    MessageBox.Show("Số lượng mặt hàng không đủ trong kho.");
+                    errChiTiet.SetError(txt_SL,"Số lượng mặt hàng không đủ trong kho.");
                     return;
                 }
 
@@ -439,7 +439,6 @@ namespace Main.ChiTiet
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
         }
    
