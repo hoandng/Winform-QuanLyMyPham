@@ -496,14 +496,18 @@
             // 
             // dgv_ChiTiet
             // 
+            this.dgv_ChiTiet.AllowUserToAddRows = false;
+            this.dgv_ChiTiet.AllowUserToDeleteRows = false;
             this.dgv_ChiTiet.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_ChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_ChiTiet.Location = new System.Drawing.Point(43, 33);
             this.dgv_ChiTiet.Name = "dgv_ChiTiet";
+            this.dgv_ChiTiet.ReadOnly = true;
             this.dgv_ChiTiet.RowHeadersWidth = 51;
             this.dgv_ChiTiet.RowTemplate.Height = 24;
+            this.dgv_ChiTiet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_ChiTiet.Size = new System.Drawing.Size(799, 179);
             this.dgv_ChiTiet.TabIndex = 8;
             this.dgv_ChiTiet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ChiTiet_CellClick);

@@ -129,14 +129,18 @@
             // 
             // dtg_NhanVien
             // 
+            this.dtg_NhanVien.AllowUserToAddRows = false;
+            this.dtg_NhanVien.AllowUserToDeleteRows = false;
             this.dtg_NhanVien.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtg_NhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtg_NhanVien.Location = new System.Drawing.Point(53, 35);
             this.dtg_NhanVien.Name = "dtg_NhanVien";
+            this.dtg_NhanVien.ReadOnly = true;
             this.dtg_NhanVien.RowHeadersWidth = 51;
             this.dtg_NhanVien.RowTemplate.Height = 24;
+            this.dtg_NhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtg_NhanVien.Size = new System.Drawing.Size(1171, 206);
             this.dtg_NhanVien.TabIndex = 24;
             this.dtg_NhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtg_NhanVien_CellClick);
@@ -443,14 +447,18 @@
             // 
             // dtg_CongViec
             // 
+            this.dtg_CongViec.AllowUserToAddRows = false;
+            this.dtg_CongViec.AllowUserToDeleteRows = false;
             this.dtg_CongViec.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtg_CongViec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtg_CongViec.Location = new System.Drawing.Point(49, 43);
             this.dtg_CongViec.Name = "dtg_CongViec";
+            this.dtg_CongViec.ReadOnly = true;
             this.dtg_CongViec.RowHeadersWidth = 51;
             this.dtg_CongViec.RowTemplate.Height = 24;
+            this.dtg_CongViec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtg_CongViec.Size = new System.Drawing.Size(1189, 231);
             this.dtg_CongViec.TabIndex = 17;
             this.dtg_CongViec.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtg_CongViec_CellClick);

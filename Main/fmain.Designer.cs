@@ -40,12 +40,13 @@
             this.btn_HangHoa = new System.Windows.Forms.Button();
             this.btn_ThongKe = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pb_TaiKhoan = new System.Windows.Forms.PictureBox();
             this.pannel_content = new System.Windows.Forms.Panel();
+            this.lb_TenTK = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pannel_menu_btn.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_TaiKhoan)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -196,7 +197,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(184)))), ((int)(((byte)(255)))));
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.lb_TenTK);
+            this.panel2.Controls.Add(this.pb_TaiKhoan);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.ForeColor = System.Drawing.SystemColors.Control;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -204,15 +206,17 @@
             this.panel2.Size = new System.Drawing.Size(212, 194);
             this.panel2.TabIndex = 1;
             // 
-            // pictureBox1
+            // pb_TaiKhoan
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(47, 35);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(120, 120);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.pb_TaiKhoan.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pb_TaiKhoan.Image = ((System.Drawing.Image)(resources.GetObject("pb_TaiKhoan.Image")));
+            this.pb_TaiKhoan.Location = new System.Drawing.Point(45, 27);
+            this.pb_TaiKhoan.Name = "pb_TaiKhoan";
+            this.pb_TaiKhoan.Size = new System.Drawing.Size(120, 120);
+            this.pb_TaiKhoan.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pb_TaiKhoan.TabIndex = 2;
+            this.pb_TaiKhoan.TabStop = false;
+            this.pb_TaiKhoan.Click += new System.EventHandler(this.pb_TaiKhoan_Click);
             // 
             // pannel_content
             // 
@@ -222,6 +226,18 @@
             this.pannel_content.Name = "pannel_content";
             this.pannel_content.Size = new System.Drawing.Size(1290, 853);
             this.pannel_content.TabIndex = 3;
+            // 
+            // lb_TenTK
+            // 
+            this.lb_TenTK.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lb_TenTK.AutoSize = true;
+            this.lb_TenTK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_TenTK.ForeColor = System.Drawing.Color.Black;
+            this.lb_TenTK.Location = new System.Drawing.Point(70, 152);
+            this.lb_TenTK.Name = "lb_TenTK";
+            this.lb_TenTK.Size = new System.Drawing.Size(59, 20);
+            this.lb_TenTK.TabIndex = 3;
+            this.lb_TenTK.Text = "label1";
             // 
             // fmain
             // 
@@ -239,7 +255,8 @@
             this.panel1.ResumeLayout(false);
             this.pannel_menu_btn.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_TaiKhoan)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -249,7 +266,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pannel_menu_btn;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pb_TaiKhoan;
         private System.Windows.Forms.Button btn_HangHoa;
         private System.Windows.Forms.Panel pannel_content;
         private System.Windows.Forms.Button btn_KhachHang;
@@ -259,6 +276,7 @@
         private System.Windows.Forms.Button btn_DonNhap;
         private System.Windows.Forms.Button brn_NhaCC;
         private System.Windows.Forms.Button btn_DangXuat;
+        private System.Windows.Forms.Label lb_TenTK;
     }
 }
 

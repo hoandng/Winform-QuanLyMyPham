@@ -118,12 +118,15 @@
             // 
             // dgv_NhaCC
             // 
+            this.dgv_NhaCC.AllowUserToAddRows = false;
+            this.dgv_NhaCC.AllowUserToDeleteRows = false;
             this.dgv_NhaCC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_NhaCC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_NhaCC.Location = new System.Drawing.Point(77, 39);
             this.dgv_NhaCC.Name = "dgv_NhaCC";
+            this.dgv_NhaCC.ReadOnly = true;
             this.dgv_NhaCC.RowHeadersWidth = 51;
             this.dgv_NhaCC.RowTemplate.Height = 24;
             this.dgv_NhaCC.Size = new System.Drawing.Size(1145, 251);

@@ -142,6 +142,32 @@ namespace Main.ChiTiet
             _data.ExecuteQuery(query, parameters);
         }
 
+        public bool IsQuantityAvailable(string maHang, int requiredQuantity)
+        {
+            string query = "SELECT SoLuong FROM HangHoa WHERE MaHang = @MaHang";
+            var parameters = new Dictionary<string, object> { { "@MaHang", maHang } };
+
+            int availableQuantity = Convert.ToInt32(_data.ExecuteScalar(query, parameters));
+
+            return availableQuantity >= requiredQuantity;
+        }
+
+        public void UpdateProductQuantity(string maHang, int quantityChange)
+        {
+            string query = @"
+            UPDATE HangHoa
+            SET SoLuong = SoLuong + @QuantityChange
+            WHERE MaHang = @MaHang";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@QuantityChange", quantityChange },
+                { "@MaHang", maHang }
+            };
+
+            _data.ExecuteNonQuery(query, parameters);
+        }
+
         private void btn_Them_Click(object sender, EventArgs e)
         {
             enableControls(true);
@@ -204,7 +230,7 @@ namespace Main.ChiTiet
                 }
                 else
                 {
-                    errChiTiet.SetError(txt_GiamGia, "");
+                    errChiTiet.Clear();
                 }
             }
             else
@@ -212,10 +238,10 @@ namespace Main.ChiTiet
                 discount = 0;
             }
 
-            if (btn_Them.Enabled == true)
+            if (btn_Them.Enabled)
             {
-
-                sql = $"Select Count(*) From [CHiTietHDB] Where SoHDB = @sohdb and MaHang = @mahang;";
+                // Kiểm tra xem mặt hàng đã tồn tại trong hóa đơn chưa
+                sql = "SELECT COUNT(*) FROM [ChiTietHDB] WHERE SoHDB = @sohdb AND MaHang = @mahang;";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@sohdb", CTHD_SoHDB},
@@ -224,11 +250,21 @@ namespace Main.ChiTiet
                 int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
                 if (count > 0)
                 {
-                    MessageBox.Show($"Đã tồn tại Hàng hoá với mã {mahang} tại hoá đơn {CTHD_SoHDB}", "Thông báo", MessageBoxButtons.OK);
+                    MessageBox.Show($"Đã tồn tại hàng hóa với mã {mahang} trong hóa đơn {CTHD_SoHDB}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
+
+                // Kiểm tra số lượng tồn kho
+                if (!IsQuantityAvailable(mahang, quantity))
+                {
+                    MessageBox.Show("Số lượng mặt hàng không đủ trong kho.");
+                    return;
+                }
+
+
+                // Thêm chi tiết hóa đơn bán
                 sql = "INSERT INTO [ChiTietHDB] (SoHDB, MaHang, SoLuong, GiamGia, ThanhTien)";
-                sql += $"VALUES(@sohdb, @mahang, @soluong, @giamgia, @thanhtien);";
+                sql += "VALUES(@sohdb, @mahang, @soluong, @giamgia, @thanhtien);";
                 parameters = new Dictionary<string, object>
                 {
                     {"@sohdb", CTHD_SoHDB},
@@ -238,49 +274,82 @@ namespace Main.ChiTiet
                     {"@thanhtien", thanhtien},
                 };
                 _data.ExecuteNonQuery(sql, parameters);
+
+                // Giảm số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, -quantity);
             }
 
-
-            //Nếu nút Sửa enable thì thực hiện cập nhật dữ liệu
-            if (btn_Sua.Enabled == true)
+            // Nếu nút Sửa enable thì thực hiện cập nhật dữ liệu
+            if (btn_Sua.Enabled)
             {
-                sql = "Update [ChiTietHDB] SET ";
-                sql += $"SoLuong = @soluong, GiamGia = @giamgia, ThanhTien = @thanhtien ";
-                sql += $"WHERE SoHDB = @sohdb And MaHang = @mahang";
-                var parameters = new Dictionary<string, object>
+                // Lấy số lượng hiện tại từ chi tiết hóa đơn
+                sql = "SELECT SoLuong FROM [ChiTietHDB] WHERE SoHDB = @sohdb AND MaHang = @mahang";
+                var selectParameters = new Dictionary<string, object>
                 {
-                    {"@sohdb", CTHD_SoHDB },
-                    {"@mahang", mahang},
-                    {"@soluong", sl},
-                    {"@giamgia", giamgia},
-                    {"@thanhtien", thanhtien},
-
+                    {"@sohdb", CTHD_SoHDB},
+                    {"@mahang", mahang}
                 };
-                _data.ExecuteNonQuery(sql, parameters);
-            }
+                int oldQuantity = Convert.ToInt32(_data.ExecuteScalar(sql, selectParameters));
 
-            //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
-            if (btn_Xoa.Enabled == true)
-            {
-                sql = $"Delete From [ChiTietHDB] Where SoHDB = @sohdb And MaHang = @mahang";
-                var parameters = new Dictionary<string, object>
+                // Tính sự chênh lệch giữa số lượng cũ và số lượng mới
+                int quantityDifference = quantity - oldQuantity;
+
+                // Nếu số lượng mới yêu cầu nhiều hơn, kiểm tra số lượng tồn kho
+                if (quantityDifference > 0 && !IsQuantityAvailable(mahang, quantityDifference))
+                {
+                    MessageBox.Show("Số lượng mặt hàng không đủ trong kho.");
+                    return;
+                }
+
+                // Cập nhật chi tiết hóa đơn bán
+                sql = "UPDATE [ChiTietHDB] SET SoLuong = @soluong, GiamGia = @giamgia, ThanhTien = @thanhtien ";
+                sql += "WHERE SoHDB = @sohdb AND MaHang = @mahang";
+                var updateParameters = new Dictionary<string, object>
                 {
                     {"@sohdb", CTHD_SoHDB},
                     {"@mahang", mahang},
+                    {"@soluong", sl},
+                    {"@giamgia", giamgia},
+                    {"@thanhtien", thanhtien}
                 };
+                _data.ExecuteNonQuery(sql, updateParameters);
 
-                _data.ExecuteNonQuery(sql, parameters);
+                // Cập nhật số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, -quantityDifference);
             }
 
+            // Nếu nút Xóa enable thì thực hiện xóa dữ liệu
+            if (btn_Xoa.Enabled)
+            {
+                // Lấy số lượng hiện tại từ chi tiết hóa đơn
+                sql = "SELECT SoLuong FROM [ChiTietHDB] WHERE SoHDB = @sohdb AND MaHang = @mahang";
+                var deleteParameters = new Dictionary<string, object>
+                {
+                    {"@sohdb", CTHD_SoHDB},
+                    {"@mahang", mahang}
+                };
+                int deleteQuantity = Convert.ToInt32(_data.ExecuteScalar(sql, deleteParameters));
+
+                // Xóa chi tiết hóa đơn
+                sql = "DELETE FROM [ChiTietHDB] WHERE SoHDB = @sohdb AND MaHang = @mahang";
+                _data.ExecuteNonQuery(sql, deleteParameters);
+
+                // Khôi phục số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, deleteQuantity);
+            }
+
+            // Tải lại chi tiết hóa đơn và cập nhật tổng tiền
             Load_CTHDB();
             UpdateTongTien_HDB();
 
+            // Đặt lại trạng thái của các điều khiển
             resetValue();
             enableControls(false);
             lb_TrangThai.Text = "";
             btn_Them.Enabled = true;
             btn_Xoa.Enabled = false;
             btn_Sua.Enabled = false;
+
         }
 
         private void btn_Huy_Click(object sender, EventArgs e)
@@ -373,7 +442,6 @@ namespace Main.ChiTiet
                 MessageBox.Show(ex.Message);
             }
         }
-
-       
+   
     }
 }

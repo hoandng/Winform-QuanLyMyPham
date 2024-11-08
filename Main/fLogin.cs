@@ -1,4 +1,5 @@
 ﻿using Main;
+using Main.TaiKhoan;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,13 +36,12 @@ namespace Login
                {"@password", password}
             };
 
-
             DataTable dtTaiKhoan = _data.ExecuteQuery(query, parameters);
 
             if (dtTaiKhoan.Rows.Count > 0)
             {
                 this.Hide();
-                fmain main = new fmain();
+                fmain main = new fmain(username, password);
                 main.Show();
             }
             else
@@ -50,11 +50,21 @@ namespace Login
             }
         }
 
+        
+
         private void btn_exit_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn chắc chăn muốn thoát không?", "Thông báo!", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Application.Exit();
+            }
+        }
+
+        private void fLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                btn_submit.PerformClick();
             }
         }
     }

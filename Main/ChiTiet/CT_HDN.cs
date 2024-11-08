@@ -76,6 +76,7 @@ namespace Main.ChiTiet
             cb_MaHang.Enabled = enable;
             txt_SL.Enabled = enable;
             txt_GiamGia.Enabled = enable;
+            txt_DonGia.Enabled = enable;
 
             btn_Luu.Enabled = enable;
             btn_Huy.Enabled = enable;
@@ -138,6 +139,54 @@ namespace Main.ChiTiet
             _data.ExecuteQuery(query, parameters);
         }
 
+        public void UpdateLatestPrice(string maHang)
+        {
+            string sql = @"
+            SELECT TOP 1 cthn.DonGia
+            FROM ChiTietHDN cthn
+            JOIN HoaDonNhap hdn ON cthn.SoHDN = hdn.SoHDN
+            WHERE cthn.MaHang = @MaHang
+            ORDER BY hdn.NgayNhap DESC";
+
+            var parameters = new Dictionary<string, object>
+            {
+                {"@MaHang", maHang}
+            };
+
+            ProcessDatabase db = new ProcessDatabase();
+            object result = db.ExecuteScalar(sql, parameters);
+
+            // Kiểm tra nếu lấy được đơn giá nhập mới nhất
+            if (result != null)
+            {
+                decimal latestPrice = Convert.ToDecimal(result);
+
+                // Cập nhật đơn giá nhập trong bảng HangHoa
+                string updateSql = "UPDATE HangHoa SET DonGiaNhap = @DonGiaNhap WHERE MaHang = @MaHang";
+                var updateParameters = new Dictionary<string, object>
+                {
+                    {"@DonGiaNhap", latestPrice},
+                    {"@MaHang", maHang}
+                };
+                db.ExecuteNonQuery(updateSql, updateParameters);
+            }
+        }
+        
+        public void UpdateProductQuantity(string maHang, int quantityChange)
+        {
+            string query = @"
+            UPDATE HangHoa
+            SET SoLuong = SoLuong + @QuantityChange
+            WHERE MaHang = @MaHang";
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "@QuantityChange", quantityChange },
+                { "@MaHang", maHang }
+            };
+
+            _data.ExecuteNonQuery(query, parameters);
+        }
         private void btn_Them_Click(object sender, EventArgs e)
         {
             enableControls(true);
@@ -224,24 +273,25 @@ namespace Main.ChiTiet
                 discount = 0;
             }
 
-            if (btn_Them.Enabled == true)
+            if (btn_Them.Enabled)
             {
-
-                sql = $"Select Count(*) From [CHiTietHDN] Where SoHDN = @sohdn And MaHang = @mahang;";
+                // Kiểm tra xem mặt hàng đã tồn tại trong hóa đơn nhập chưa
+                sql = "SELECT COUNT(*) FROM [ChiTietHDN] WHERE SoHDN = @sohdn AND MaHang = @mahang;";
                 var parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
                     {"@mahang", mahang},
-
                 };
                 int count = Convert.ToInt32(_data.ExecuteScalar(sql, parameters));
                 if (count > 0)
                 {
-                    MessageBox.Show($"Đã tồn tại Hàng hoá với mã {mahang} tại hoá đơn {CTHD_SoHDN}", "Thông báo", MessageBoxButtons.OK);
+                    MessageBox.Show($"Đã tồn tại hàng hóa với mã {mahang} trong hóa đơn nhập {CTHD_SoHDN}", "Thông báo", MessageBoxButtons.OK);
                     return;
                 }
+
+                // Thêm chi tiết hóa đơn nhập
                 sql = "INSERT INTO [ChiTietHDN] (SoHDN, MaHang, SoLuong, DonGia, GiamGia, ThanhTien)";
-                sql += $"VALUES(@sohdn, @mahang, @soluong, @dongia, @giamgia, @thanhtien);";
+                sql += "VALUES(@sohdn, @mahang, @soluong, @dongia, @giamgia, @thanhtien);";
                 parameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
@@ -252,50 +302,86 @@ namespace Main.ChiTiet
                     {"@thanhtien", thanhtien},
                 };
                 _data.ExecuteNonQuery(sql, parameters);
+
+                // Tăng số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, quantity);
+
+                // Cập nhật giá nhập mới nhất
+                UpdateLatestPrice(mahang);
             }
 
-
-            //Nếu nút Sửa enable thì thực hiện cập nhật dữ liệu
-            if (btn_Sua.Enabled == true)
+            // Nếu nút Sửa enable thì thực hiện cập nhật dữ liệu
+            if (btn_Sua.Enabled)
             {
-                sql = "Update [ChiTietHDN] SET ";
-                sql += $"SoLuong = @soluong, DonGia = @dongia, GiamGia = @giamgia, ThanhTien = @thanhtien ";
-                sql += $"WHERE SoHDN = @sohdn And MaHang = @mahang";
-                var parameters = new Dictionary<string, object>
+                // Lấy số lượng hiện tại từ chi tiết hóa đơn nhập
+                sql = "SELECT SoLuong FROM [ChiTietHDN] WHERE SoHDN = @sohdn AND MaHang = @mahang";
+                var selectParameters = new Dictionary<string, object>
                 {
-                    {"@sohdn", CTHD_SoHDN },
+                    {"@sohdn", CTHD_SoHDN},
+                    {"@mahang", mahang}
+                };
+                int oldQuantity = Convert.ToInt32(_data.ExecuteScalar(sql, selectParameters));
+
+                // Tính sự chênh lệch giữa số lượng cũ và số lượng mới
+                int quantityDifference = quantity - oldQuantity;
+
+                // Cập nhật chi tiết hóa đơn nhập
+                sql = "UPDATE [ChiTietHDN] SET ";
+                sql += "SoLuong = @soluong, DonGia = @dongia, GiamGia = @giamgia, ThanhTien = @thanhtien ";
+                sql += "WHERE SoHDN = @sohdn AND MaHang = @mahang";
+                var updateParameters = new Dictionary<string, object>
+                {
+                    {"@sohdn", CTHD_SoHDN},
                     {"@mahang", mahang},
                     {"@soluong", sl},
                     {"@dongia", dongia},
                     {"@giamgia", giamgia},
-                    {"@thanhtien", thanhtien},
-
+                    {"@thanhtien", thanhtien}
                 };
-                _data.ExecuteNonQuery(sql, parameters);
+                _data.ExecuteNonQuery(sql, updateParameters);
+
+                // Cập nhật số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, quantityDifference);
+
+                // Cập nhật giá nhập mới nhất
+                UpdateLatestPrice(mahang);
             }
 
-            //Nếu nút Xóa enable thì thực hiện xóa dữ liệu
-            if (btn_Xoa.Enabled == true)
+            // Nếu nút Xóa enable thì thực hiện xóa dữ liệu
+            if (btn_Xoa.Enabled)
             {
-                sql = $"Delete From [ChiTietHDN] Where SoHDN = @sohdn And MaHang = @mahang";
-                var parameters = new Dictionary<string, object>
+                // Lấy số lượng hiện tại từ chi tiết hóa đơn nhập
+                sql = "SELECT SoLuong FROM [ChiTietHDN] WHERE SoHDN = @sohdn AND MaHang = @mahang";
+                var deleteParameters = new Dictionary<string, object>
                 {
                     {"@sohdn", CTHD_SoHDN},
-                    {"@mahang", mahang},
+                    {"@mahang", mahang}
                 };
+                int deleteQuantity = Convert.ToInt32(_data.ExecuteScalar(sql, deleteParameters));
 
-                _data.ExecuteNonQuery(sql, parameters);
+                // Xóa chi tiết hóa đơn nhập
+                sql = "DELETE FROM [ChiTietHDN] WHERE SoHDN = @sohdn AND MaHang = @mahang";
+                _data.ExecuteNonQuery(sql, deleteParameters);
+
+                // Giảm số lượng hàng hóa trong kho
+                UpdateProductQuantity(mahang, -deleteQuantity);
+
+                // Cập nhật giá nhập mới nhất
+                UpdateLatestPrice(mahang);
             }
 
+            // Tải lại chi tiết hóa đơn nhập và cập nhật tổng tiền
             Load_CTHDN();
             UpdateTongTien_HDN();
 
+            // Đặt lại trạng thái của các điều khiển
             resetValue();
             enableControls(false);
             lb_TrangThai.Text = "";
             btn_Them.Enabled = true;
             btn_Xoa.Enabled = false;
             btn_Sua.Enabled = false;
+
         }
 
         private void btn_Huy_Click(object sender, EventArgs e)

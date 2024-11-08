@@ -48,3 +48,4 @@ D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.csproj.Up2Date
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.ThongKe.ThongKe.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Login.fLogin.resources
 D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.fmain.resources
+D:\VisualPrograming\BTL\QLBH\Main\obj\Debug\Main.TaiKhoan.TaiKhoan.resources

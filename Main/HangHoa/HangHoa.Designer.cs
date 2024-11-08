@@ -744,6 +744,7 @@
             // pictureBox_AnhSP
             // 
             this.pictureBox_AnhSP.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox_AnhSP.Image = global::Main.Properties.Resources.no_image;
             this.pictureBox_AnhSP.Location = new System.Drawing.Point(1057, 71);
             this.pictureBox_AnhSP.Name = "pictureBox_AnhSP";
             this.pictureBox_AnhSP.Size = new System.Drawing.Size(178, 178);
@@ -814,6 +815,7 @@
             this.txt_GiaNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_GiaNhap.Location = new System.Drawing.Point(874, 114);
             this.txt_GiaNhap.Name = "txt_GiaNhap";
+            this.txt_GiaNhap.ReadOnly = true;
             this.txt_GiaNhap.Size = new System.Drawing.Size(146, 27);
             this.txt_GiaNhap.TabIndex = 11;
             // 
@@ -1007,7 +1009,7 @@
             // 
             // panel10
             // 
-            this.panel10.BackColor = System.Drawing.Color.Transparent;
+            this.panel10.BackColor = System.Drawing.SystemColors.Window;
             this.panel10.Controls.Add(this.label16);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel10.Location = new System.Drawing.Point(3, 3);

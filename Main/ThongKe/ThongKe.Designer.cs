@@ -116,14 +116,18 @@
             // 
             // dgv_DoanhThu
             // 
+            this.dgv_DoanhThu.AllowUserToAddRows = false;
+            this.dgv_DoanhThu.AllowUserToDeleteRows = false;
             this.dgv_DoanhThu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_DoanhThu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_DoanhThu.Location = new System.Drawing.Point(36, 85);
             this.dgv_DoanhThu.Name = "dgv_DoanhThu";
+            this.dgv_DoanhThu.ReadOnly = true;
             this.dgv_DoanhThu.RowHeadersWidth = 51;
             this.dgv_DoanhThu.RowTemplate.Height = 24;
+            this.dgv_DoanhThu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_DoanhThu.Size = new System.Drawing.Size(1200, 498);
             this.dgv_DoanhThu.TabIndex = 0;
             // 
@@ -174,14 +178,18 @@
             // 
             // dgv_MHBC
             // 
+            this.dgv_MHBC.AllowUserToAddRows = false;
+            this.dgv_MHBC.AllowUserToDeleteRows = false;
             this.dgv_MHBC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_MHBC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_MHBC.Location = new System.Drawing.Point(41, 36);
             this.dgv_MHBC.Name = "dgv_MHBC";
+            this.dgv_MHBC.ReadOnly = true;
             this.dgv_MHBC.RowHeadersWidth = 51;
             this.dgv_MHBC.RowTemplate.Height = 24;
+            this.dgv_MHBC.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_MHBC.Size = new System.Drawing.Size(1182, 262);
             this.dgv_MHBC.TabIndex = 0;
             this.dgv_MHBC.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_MHBC_CellClick);

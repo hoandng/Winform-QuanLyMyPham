@@ -56,6 +56,7 @@ namespace Main.HoaDonBan
             cb_MaNV.DisplayMember = "TenNV"; // Tên cột hiển thị
             cb_MaNV.ValueMember = "MaNV";     // Tên cột giá trị
         }
+        
         private void fill_KhachHang()
         {
             string query = "SELECT MaKhach, TenKhach FROM [KhachHang]";

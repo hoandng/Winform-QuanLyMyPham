@@ -4,6 +4,7 @@ using Main.NhanVien;
 using Main.HoaDonBan;
 using Main.HoaDonNhap;
 using Main.ThongKe;
+using Main.TaiKhoan;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,21 +16,38 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Main.NhaCungCap;
 using Login;
+using System.Runtime.CompilerServices;
 namespace Main
 {
     public partial class fmain : Form
     {
+        ProcessDatabase _data;
         private Form activeform = null;
         private Button currentButton;
-        public fmain()
+        private string curr_user = "";
+        private string curr_password = "";
+        public fmain(string user = "", string password = "")
         {
+            _data = new ProcessDatabase();
+            curr_user = user;
+            curr_password = password;
             InitializeComponent();
         }
         private void fmain_Load(object sender, EventArgs e)
         {
-             btn_ThongKe.PerformClick();
+            btn_ThongKe.PerformClick();
+            lb_TenTK.Text = curr_user;
+            string query = "Select Anh From [TaiKhoan] Where Email = @tk";
+            var parameters = new Dictionary<string, object>
+            {
+                {"@tk", curr_user},
+            };
+            var dest = _data.ExecuteScalar(query, parameters);
+            if(dest.ToString().Trim() != "")
+            {
+                pb_TaiKhoan.ImageLocation = dest.ToString();
+            }
         }
-
         //Mở form khi click vào 1 button
         private void openChildForm(Form childForm)
         {
@@ -44,7 +62,7 @@ namespace Main
             childForm.BringToFront();
             childForm.Show();
         }
-
+        
         private void ActivateButton(object btnSender)
         {
             if (btnSender != null)
@@ -59,6 +77,7 @@ namespace Main
                 }
             }
         }
+        
         private void DisableButton()
         {
             foreach (Control previousBtn in pannel_menu_btn.Controls)
@@ -70,11 +89,13 @@ namespace Main
                 }
             }
         }
+        
         private void btn_HangHoa_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
             openChildForm(new HangHoa.HangHoa());
         }
+        
         private void btn_KhachHang_Click(object sender, EventArgs e)
         {
             ActivateButton(sender);
@@ -125,6 +146,12 @@ namespace Main
         {
             Application.Exit();
         }
+
+        private void pb_TaiKhoan_Click(object sender, EventArgs e)
+        {
+            openChildForm(new TaiKhoan.TaiKhoan(curr_user, curr_password));
+        }
+
 
     }
 }

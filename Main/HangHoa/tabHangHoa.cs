@@ -26,6 +26,7 @@ namespace Main.HangHoa
             dtg_HangHoa.VirtualMode = true;
             dtHangHoa.Dispose();
         }
+        
         private void tp_HangHoa_Enter(object sender, EventArgs e)
         {
             // Đổ dữ liệu vào Combobox
@@ -52,6 +53,7 @@ namespace Main.HangHoa
 
             //ClearDataGrid(dtg_HangHoa);
         }
+        
         private void fill_ChatLieu()
         {
             string query = "SELECT MaChatLieu, TenChatLieu FROM [ChatLieu]";
@@ -61,6 +63,7 @@ namespace Main.HangHoa
             cb_CL.DisplayMember = "TenChatLieu"; // Tên cột hiển thị
             cb_CL.ValueMember = "MaChatLieu";     // Tên cột giá trị
         }
+        
         private void fill_CongDung()
         {
             string query = "SELECT MaCongDung, TenCongDung FROM [CongDung]";
@@ -70,6 +73,7 @@ namespace Main.HangHoa
             cb_CD.DisplayMember = "TenCongDung"; // Tên cột hiển thị
             cb_CD.ValueMember = "MaCongDung";     // Tên cột giá trị
         }
+        
         private void fill_KhoiLuong()
         {
             string query = "SELECT MaKhoiLuong, TenKhoiLuong FROM [KhoiLuong]";
@@ -79,6 +83,7 @@ namespace Main.HangHoa
             cb_KL.DisplayMember = "TenKhoiLuong"; // Tên cột hiển thị
             cb_KL.ValueMember = "MaKhoiLuong";     // Tên cột giá trị
         }
+        
         private void fill_Loai ()
         {
             string query = "SELECT MaLoai, TenLoai FROM [Loai]";
@@ -88,6 +93,7 @@ namespace Main.HangHoa
             cb_Loai.DisplayMember = "TenLoai"; // Tên cột hiển thị
             cb_Loai.ValueMember = "MaLoai";     // Tên cột giá trị
         }
+        
         private void fill_Mau()
         {
             string query = "SELECT MaMau, TenMau FROM [MauSac]";
@@ -97,6 +103,7 @@ namespace Main.HangHoa
             cb_Mau.DisplayMember = "TenMau"; // Tên cột hiển thị
             cb_Mau.ValueMember = "MaMau";     // Tên cột giá trị
         }
+        
         private void fill_Mua()
         {
             string query = "SELECT MaMua, TenMua FROM [Mua]";
@@ -106,6 +113,7 @@ namespace Main.HangHoa
             cb_Mua.DisplayMember = "TenMua"; // Tên cột hiển thị
             cb_Mua.ValueMember = "MaMua";     // Tên cột giá trị
         }
+        
         private void fill_NuocSX()
         {
             string query = "SELECT MaNuocSX, TenNuocSX FROM [NuocSX]";
@@ -115,6 +123,7 @@ namespace Main.HangHoa
             cb_NuocSX.DisplayMember = "TenNuocSX"; // Tên cột hiển thị
             cb_NuocSX.ValueMember = "MaNuocSX";     // Tên cột giá trị
         }
+        
         private void fill_HangSX()
         {
             string query = "SELECT MaHangSX, TenHangSX FROM [HangSX]";
@@ -124,11 +133,13 @@ namespace Main.HangHoa
             cb_Hang.DisplayMember = "TenHangSX"; // Tên cột hiển thị
             cb_Hang.ValueMember = "MaHangSX";     // Tên cột giá trị
         }
+        
         private void tp_HangHoa_Leave(object sender, EventArgs e)
         {
 
 
         }
+        
         private void Enable_HangHoa(Boolean hien)
         {
             txt_MaHang.Enabled = hien;
@@ -152,6 +163,7 @@ namespace Main.HangHoa
             btn_TaiAnh.Enabled = hien;
 
         }
+        
         private void ResetValueTextBox_HangHoa()
         {
             txt_MaHang.Text = "";
@@ -171,6 +183,7 @@ namespace Main.HangHoa
             txt_GhiChu.Text = "";
             pictureBox_AnhSP.ImageLocation = "";
         }
+        
         private void dtg_HangHoa_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Bắt lỗi khi người sử dụng kích linh tinh lên datagrid
@@ -391,6 +404,7 @@ namespace Main.HangHoa
             //Cam nhap
             Enable_HangHoa(false);
         }
+        
         private void btn_HH_Them_Click(object sender, EventArgs e)
         {
             lb_HH_TrangThai.Text = "*Bạn đang ở chế độ thêm!";
@@ -425,6 +439,7 @@ namespace Main.HangHoa
                 btn_HH_Huy.Enabled = true;
             }
         }
+        
         private void btn_TaiAnh_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
